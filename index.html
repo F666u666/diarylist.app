@@ -386,8 +386,8 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .title-icon-btn:hover{color:var(--accent);transform:scale(1.1);}
 
 .tab-header{padding:48px 0 14px;width:100%;position:relative;text-align:center;}
-.tab-header-inner{display:flex;align-items:center;justify-content:center;gap:12px;}
-.tab-header-line{flex:1;height:1px;background:rgba(26,20,16,0.10);max-width:60px;}
+.tab-header-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;}
+.tab-header-line{height:1px;background:rgba(26,20,16,0.10);}
 [data-theme="dark"] .tab-header-line{background:rgba(240,235,226,0.12);}
 .tab-header-title{font-family:'Playfair Display SC',serif;font-size:min(8vw,52px);font-weight:400;letter-spacing:0.18em;color:rgba(26,20,16,0.58);white-space:nowrap;text-transform:uppercase;padding:0 clamp(14px,3vw,28px);}
 [data-theme="dark"] .tab-header-title{color:rgba(240,235,226,0.72);}
@@ -942,7 +942,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-5';
+const APP_VERSION='20260331-6';
 
 /* Audio */
 /* ── Audio ── */
