@@ -1878,7 +1878,7 @@ setInterval(function(){
 
   function draw(){
     try {
-      t++;
+      if(!ctx){ ctx = cv.getContext('2d'); if(!ctx){ rafId = requestAnimationFrame(draw); return; } }
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       const ar = accentR, ag = accentG, ab = accentB;
 
@@ -1916,7 +1916,11 @@ setInterval(function(){
         ctx.fillStyle = `rgba(${ar},${ag},${ab},${Math.min(a, 0.95).toFixed(3)})`;
         ctx.fill();
       });
-    } catch(e) { console.warn('[bgAnim]', e); }
+      t++; // draw成功時のみ increment（失敗時はwatchdogが検出して再起動）
+    } catch(e) {
+      console.warn('[bgAnim]', e);
+      ctx = cv.getContext('2d'); // ctx無効化時に再取得を試みる
+    }
 
     rafId = requestAnimationFrame(draw);
   }
