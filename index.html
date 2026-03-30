@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-10';
+const APP_VERSION='20260331-11';
 
 /* Audio */
 /* ── Audio ── */
@@ -2396,9 +2396,14 @@ function renderYesterdayCard(){
 checkCarry();
 
 // データ移行
+function _isDataKey(k){
+  return k.startsWith('diary-global')||k.startsWith('diary-data-')||
+         k.startsWith('diary-goals-')||k.startsWith('diary-nottodo-')||
+         k==='diary-last-seen';
+}
 function exportData(){
   const data={};
-  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);data[k]=localStorage.getItem(k);}
+  for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(_isDataKey(k))data[k]=localStorage.getItem(k);}
   const json=JSON.stringify(data);
   navigator.clipboard.writeText(json)
     .then(()=>alert('コピーしました！\n新しいアプリの歯車→インポートに貼り付けてください。'))
@@ -2413,7 +2418,7 @@ function toggleImportArea(){
 function importData(){
   try{
     const data=JSON.parse(document.getElementById('importArea').value);
-    Object.keys(data).forEach(k=>localStorage.setItem(k,data[k]));
+    Object.keys(data).filter(_isDataKey).forEach(k=>localStorage.setItem(k,data[k]));
     alert('インポート完了！再起動します。');
     setTimeout(()=>location.reload(), 100);
   }catch(e){alert('形式が正しくありません。');}
@@ -2436,8 +2441,6 @@ if('serviceWorker' in navigator){
   <button class="data-btn" onclick="toggleImportArea()">インポート</button>
   <textarea class="import-area" id="importArea" placeholder="エクスポートしたテキストを貼り付け…" onclick="event.stopPropagation()"></textarea>
   <button class="import-exec-btn" id="importExecBtn" onclick="importData()">インポートを実行</button>
-  <div class="panel-divider"></div>
-  <button class="data-btn" style="color:rgba(200,60,50,0.7);" onclick="if(confirm('Wish List を全て削除しますか？')){G.bucket=[];saveGlobal();renderBucket();document.getElementById('colorPanel').classList.remove('open');}">Wish List を全消去</button>
 </div>
 </body>
 </html>
