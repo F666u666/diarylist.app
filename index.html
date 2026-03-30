@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-11';
+const APP_VERSION='20260331-12';
 
 /* Audio */
 /* ── Audio ── */
@@ -2397,8 +2397,9 @@ checkCarry();
 
 // データ移行
 function _isDataKey(k){
-  return k.startsWith('diary-global')||k.startsWith('diary-data-')||
+  return k.startsWith('diary-global')||k.startsWith('diary-day-')||
          k.startsWith('diary-goals-')||k.startsWith('diary-nottodo-')||
+         k.startsWith('diary-routine-checks-')||
          k==='diary-last-seen';
 }
 function exportData(){
