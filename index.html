@@ -942,6 +942,8 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
+const APP_VERSION='20260331-2';
+
 /* Audio */
 /* ── Audio ── */
 const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p);}catch(e){}};
@@ -1790,9 +1792,25 @@ applyAccent(savedHex);
 updateDateUI();
 renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderYesterdayCard();
 
+// 自動アップデートチェック
+let _lastUpdateCheck=0;
+async function checkAppUpdate(){
+  const now=Date.now();
+  if(now-_lastUpdateCheck<30*60*1000)return;
+  _lastUpdateCheck=now;
+  try{
+    const res=await fetch(location.pathname+'?_v='+now,{cache:'no-store'});
+    if(!res.ok)return;
+    const text=await res.text();
+    const m=text.match(/APP_VERSION='([^']+)'/);
+    if(m&&m[1]!==APP_VERSION)location.reload(true);
+  }catch(e){}
+}
+
 // PWA復帰時・日付またぎ対応
 document.addEventListener('visibilitychange',function(){
   if(document.visibilityState==='visible'){
+    checkAppUpdate();
     const newToday=toKey(new Date());
     if(newToday!==TODAY){
       // 日付をまたいだ場合
