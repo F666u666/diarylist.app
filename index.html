@@ -942,7 +942,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-2';
+const APP_VERSION='20260331-3';
 
 /* Audio */
 /* ── Audio ── */
@@ -1843,8 +1843,7 @@ setInterval(function(){
 (function initBg(){
   const cv = document.getElementById('bgCanvas');
   if(!cv) return;
-  let ctx = cv.getContext('2d');
-  if(!ctx){ console.warn('[bgAnim] canvas 2d context unavailable'); return; }
+  let ctx = cv.getContext('2d'); // nullでも続行（visibilitychange/watchdogで復帰を試みる）
   let W = window.innerWidth, H = window.innerHeight, t = 0, rafId = null;
   let accentR=168, accentG=190, accentB=200;
 
@@ -1946,23 +1945,33 @@ setInterval(function(){
 
   draw();
 
-  document.addEventListener('visibilitychange', () => {
-    if(!document.hidden){
-      // iOSがメモリ不足時にcanvasバッキングストアを破棄した場合の強制再生成
-      cv.width = W = window.innerWidth || W;
-      cv.height = H = window.innerHeight || H;
-      // コンテキストを再取得（iOSで長時間バックグラウンド後に無効化される）
-      ctx = cv.getContext('2d');
-      if(!ctx) return;
-      if(rafId) cancelAnimationFrame(rafId);
-      draw();
+  function tryRestartCanvas(retries){
+    cv.width = W = window.innerWidth || W;
+    cv.height = H = window.innerHeight || H;
+    ctx = cv.getContext('2d');
+    if(!ctx){
+      // iOSがまだGPUリソースを解放していない場合はリトライ
+      if((retries||0) < 6) setTimeout(()=>tryRestartCanvas((retries||0)+1), 500);
+      return;
     }
+    if(rafId) cancelAnimationFrame(rafId);
+    draw();
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if(!document.hidden) tryRestartCanvas(0);
   });
 
   // Watchdog: if animation stops for any reason, restart it
   let lastT = -1;
   setInterval(() => {
     if(t === lastT){
+      // ctxが無効な場合はcanvasをリサイズして再取得（iOSでコンテキストが復帰することがある）
+      if(!ctx){
+        cv.width = W = window.innerWidth || W;
+        cv.height = H = window.innerHeight || H;
+        ctx = cv.getContext('2d');
+      }
       if(rafId) cancelAnimationFrame(rafId);
       draw();
     }
