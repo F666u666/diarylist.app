@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-14';
+const APP_VERSION='20260331-15';
 
 /* Audio */
 /* ── Audio ── */
@@ -2397,14 +2397,10 @@ checkCarry();
 
 // データ移行
 function exportData(){
-  const data={};
-  for(let i=0;i<localStorage.length;i++){
-    const k=localStorage.key(i);
-    if(k.startsWith('diary-day-')||k==='diary-global-v1') data[k]=localStorage.getItem(k);
-  }
-  const json=JSON.stringify(data);
+  const g=JSON.parse(localStorage.getItem('diary-global-v1')||'{}');
+  const json=JSON.stringify({bucket:g.bucket||[]});
   navigator.clipboard.writeText(json)
-    .then(()=>alert('コピーしました！\n新しいアプリの歯車→インポートに貼り付けてください。'))
+    .then(()=>alert('Wish Listをコピーしました！\n新しいアプリの歯車→インポートに貼り付けてください。'))
     .catch(()=>prompt('以下をコピーしてください：',json));
 }
 function toggleImportArea(){
@@ -2416,17 +2412,15 @@ function toggleImportArea(){
 function importData(){
   try{
     const data=JSON.parse(document.getElementById('importArea').value);
-    // 日記データをインポート
-    Object.keys(data).filter(k=>k.startsWith('diary-day-')).forEach(k=>localStorage.setItem(k,data[k]));
-    // wishリストのbucketだけマージ（routines・cats等は触らない）
-    if(data['diary-global-v1']){
-      try{
-        const old=JSON.parse(data['diary-global-v1']);
-        if(Array.isArray(old.bucket)&&old.bucket.length){G.bucket=old.bucket;saveGlobal();}
-      }catch(e){}
+    if(Array.isArray(data.bucket)&&data.bucket.length){
+      G.bucket=data.bucket;
+      saveGlobal();
+      alert('Wish Listをインポートしました！');
+      document.getElementById('colorPanel').classList.remove('open');
+      renderBucket();
+    }else{
+      alert('Wish Listのデータが見つかりませんでした。');
     }
-    alert('インポート完了！再起動します。');
-    setTimeout(()=>location.reload(), 100);
   }catch(e){alert('形式が正しくありません。');}
 }
 
