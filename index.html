@@ -33,7 +33,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;transition:transform 0.22s;}
 .icon-btn:hover{transform:scale(1.15) rotate(12deg);}
 .color-picker-wrap{position:relative;}
-.color-panel{position:fixed;top:calc(54px + env(safe-area-inset-top, 0px));right:12px;background:rgba(255,255,255,0.97);backdrop-filter:blur(32px) saturate(1.5);-webkit-backdrop-filter:blur(32px) saturate(1.5);border:1px solid rgba(255,255,255,0.92);border-radius:22px;padding:18px;box-shadow:0 16px 48px rgba(0,0,0,0.25);width:260px;display:none;flex-direction:column;gap:12px;animation:popIn 0.2s ease;z-index:9999;pointer-events:auto;isolation:isolate;}
+.color-panel{position:fixed;top:72px;right:12px;background:rgba(255,255,255,0.97);backdrop-filter:blur(32px) saturate(1.5);-webkit-backdrop-filter:blur(32px) saturate(1.5);border:1px solid rgba(255,255,255,0.92);border-radius:22px;padding:18px;box-shadow:0 16px 48px rgba(0,0,0,0.25);width:260px;display:none;flex-direction:column;gap:12px;animation:popIn 0.2s ease;z-index:9999;pointer-events:auto;isolation:isolate;}
 [data-theme="dark"] .color-panel{background:rgba(40,36,32,0.92);border-color:rgba(255,255,255,0.14);}
 .color-panel.open{display:flex;}
 @keyframes popIn{from{opacity:0;transform:translateY(-8px) scale(0.96);}to{opacity:1;transform:translateY(0) scale(1);}}
@@ -49,7 +49,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .custom-row span{font-family:'Noto Serif JP',serif;font-size:11px;color:rgba(26,20,16,0.38);}
 [data-theme="dark"] .custom-row span{color:rgba(240,235,226,0.40);}
 
-.title-block{position:relative;z-index:1;text-align:center;padding:32px 0 14px;width:100%;max-width:none;}
+.title-block{position:relative;z-index:1;text-align:center;padding:48px 0 14px;width:100%;max-width:none;}
 .site-title{font-family:'Playfair Display SC',serif;font-style:normal;font-weight:400;font-size:min(8vw,52px);letter-spacing:0.18em;line-height:1;color:rgba(26,20,16,0.62);transition:color 0.5s;margin:0;display:flex;align-items:center;width:100%;white-space:nowrap;}
 .site-title-text{display:inline-block;padding:0 clamp(14px,3vw,28px);text-transform:uppercase;}
 [data-theme="dark"] .site-title{color:rgba(240,235,226,0.75);}
@@ -377,9 +377,10 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .tab-pane{animation:fadeInUp 0.22s ease;}
 @keyframes fadeInUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 
-.title-top-row{display:flex;align-items:center;justify-content:center;position:relative;width:100%;}
+.title-top-row{display:flex;align-items:center;width:100%;}
 .title-top-row .site-title{flex:1;}
-.title-actions{position:fixed;top:calc(12px + env(safe-area-inset-top, 0px));right:12px;display:flex;align-items:center;gap:4px;z-index:9999;}
+.title-top-row::before{content:'';flex:0 0 76px;}
+.title-actions{display:flex;align-items:center;gap:4px;flex:0 0 76px;justify-content:flex-end;}
 .title-icon-btn{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(26,20,16,0.30);transition:color 0.2s,transform 0.2s;}
 [data-theme="dark"] .title-icon-btn{color:rgba(240,235,226,0.35);}
 .title-icon-btn:hover{color:var(--accent);transform:scale(1.1);}
@@ -391,7 +392,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .tab-header-title{font-family:'Playfair Display SC',serif;font-size:min(8vw,52px);font-weight:400;letter-spacing:0.18em;color:rgba(26,20,16,0.58);white-space:nowrap;text-transform:uppercase;padding:0 clamp(14px,3vw,28px);}
 [data-theme="dark"] .tab-header-title{color:rgba(240,235,226,0.72);}
 
-#paneRoutine .card-title, #paneBucket .card-title, #paneReport .card-title{display:none;}
+#paneReport .card-title{display:none;}
 
 /* ── Routine Section Tabs ─── */
 .routine-section-tabs{display:flex;gap:0;margin-bottom:18px;border-radius:20px;background:rgba(26,20,16,0.05);padding:3px;}
@@ -470,6 +471,27 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 .footer-social-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,0.50);border:1px solid rgba(26,20,16,0.10);color:rgba(26,20,16,0.52);font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;backdrop-filter:blur(10px);}
 [data-theme="dark"] .footer-social-btn{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.14);color:rgba(240,235,226,0.52);}
 .footer-social-btn:hover{background:rgba(255,255,255,0.80);color:var(--accent);border-color:var(--accent);transform:translateY(-1px);}
+
+/* ── Goal Tab ── */
+.goal-month-label{font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:0.18em;color:rgba(26,20,16,0.38);text-align:center;margin-bottom:20px;}
+[data-theme="dark"] .goal-month-label{color:rgba(240,235,226,0.32);}
+.goal-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
+.goal-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.85);border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+[data-theme="dark"] .goal-item{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.12);}
+.goal-item-num{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.06em;color:var(--accent);min-width:16px;text-align:center;font-weight:500;}
+.goal-item-text{flex:1;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:300;color:#1a1410;background:none;border:none;outline:none;padding:0;line-height:1.5;}
+[data-theme="dark"] .goal-item-text{color:#f0ebe2;}
+.goal-item-del{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(26,20,16,0.25);transition:all 0.2s;flex-shrink:0;}
+[data-theme="dark"] .goal-item-del{color:rgba(240,235,226,0.22);}
+.goal-item-del:hover{background:rgba(220,80,60,0.12);color:rgba(220,80,60,0.7);}
+.goal-add-row{display:flex;gap:8px;align-items:center;}
+.goal-add-input{flex:1;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.85);border-radius:20px;padding:10px 16px;font-family:'Noto Serif JP',serif;font-size:13px;font-weight:300;color:rgba(26,20,16,0.75);outline:none;transition:all 0.22s;}
+[data-theme="dark"] .goal-add-input{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.14);color:rgba(240,235,226,0.80);}
+.goal-add-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px hsl(var(--ah),var(--as),var(--al),0.12);}
+.goal-add-btn{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 0.2s;}
+.goal-add-btn:active{transform:scale(0.93);}
+.goal-empty{text-align:center;padding:32px 0;font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(26,20,16,0.32);line-height:2;}
+[data-theme="dark"] .goal-empty{color:rgba(240,235,226,0.28);}
 .footer-label{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.14em;color:rgba(26,20,16,0.30);display:block;margin-bottom:4px;}
 [data-theme="dark"] .footer-label{color:rgba(240,235,226,0.30);}
 .footer-link{font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.06em;color:rgba(26,20,16,0.60);text-decoration:none;transition:color 0.2s;border-bottom:0.5px solid rgba(26,20,16,0.20);padding-bottom:1px;}
@@ -663,17 +685,33 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
     <div id="weeklyReport"></div>
   </div>
 
+  <div class="tab-header" id="headerGoal" style="display:none;">
+    <div class="tab-header-inner">
+      <span class="tab-header-line"></span>
+      <span class="tab-header-title">Goal</span>
+      <span class="tab-header-line"></span>
+    </div>
+  </div>
+  <div class="card tab-pane" id="paneGoal" data-pane="goal" style="display:none;">
+    <div class="card-title">Monthly Goal</div>
+    <div class="card-rule"></div>
+    <div class="goal-month-label" id="goalMonthLabel"></div>
+    <div class="goal-list" id="goalList"></div>
+    <div class="goal-add-row">
+      <input class="goal-add-input" id="goalInput" type="text" placeholder="目標を追加…" maxlength="60" onkeydown="if(event.key==='Enter')addGoal()">
+      <button class="goal-add-btn" onclick="addGoal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
+          <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
 </div>
 
 
 <!-- Bottom Navigation -->
 <div id="bottomNav">
-  <div id="plusFloatBtn" onclick="toggleAddSheet()">
-    <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
-      <line x1="12" y1="5" x2="12" y2="19"/>
-      <line x1="5" y1="12" x2="19" y2="12"/>
-    </svg>
-  </div>
   <div class="bn-bar">
     <button class="bn-item active" id="bn-task" onclick="switchTab('task')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -691,7 +729,17 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
       </svg>
       <span>Routines</span>
     </button>
-    <div class="bn-plus-space"></div>
+    <button class="bn-item" id="bn-goal" onclick="switchTab('goal')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="3" x2="12" y2="1"/>
+        <line x1="12" y1="23" x2="12" y2="21"/>
+        <line x1="3" y1="12" x2="1" y2="12"/>
+        <line x1="23" y1="12" x2="21" y2="12"/>
+      </svg>
+      <span>Goal</span>
+    </button>
     <button class="bn-item" id="bn-bucket" onclick="switchTab('bucket')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
@@ -1755,6 +1803,7 @@ document.addEventListener('visibilitychange',function(){
     D=loadDay(viewDate);
     updateDateUI();
     renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();
+    switchRoutineSection('todo');
   }
 });
 
@@ -1768,6 +1817,7 @@ setInterval(function(){
     D=loadDay(viewDate);
     updateDateUI();
     renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();
+    switchRoutineSection('todo');
   }
 },60000);
 
@@ -1775,7 +1825,7 @@ setInterval(function(){
 (function initBg(){
   const cv = document.getElementById('bgCanvas');
   if(!cv) return;
-  const ctx = cv.getContext('2d');
+  let ctx = cv.getContext('2d');
   if(!ctx){ console.warn('[bgAnim] canvas 2d context unavailable'); return; }
   let W = window.innerWidth, H = window.innerHeight, t = 0, rafId = null;
   let accentR=168, accentG=190, accentB=200;
@@ -1879,6 +1929,9 @@ setInterval(function(){
       // iOSがメモリ不足時にcanvasバッキングストアを破棄した場合の強制再生成
       cv.width = W = window.innerWidth || W;
       cv.height = H = window.innerHeight || H;
+      // コンテキストを再取得（iOSで長時間バックグラウンド後に無効化される）
+      ctx = cv.getContext('2d');
+      if(!ctx) return;
       if(rafId) cancelAnimationFrame(rafId);
       draw();
     }
@@ -1979,7 +2032,7 @@ let _currentTab = 'task';
 
 function switchTab(tab){
   // hide all panes
-  ['task','routine','bucket','report'].forEach(t => {
+  ['task','routine','bucket','report','goal'].forEach(t => {
     const el = document.getElementById('pane' + t.charAt(0).toUpperCase() + t.slice(1));
     if(el) el.style.display = 'none';
   });
@@ -1988,7 +2041,7 @@ function switchTab(tab){
   const pane = document.getElementById(paneId);
   if(pane){ pane.style.display = ''; }
   // update nav items
-  ['task','routine','bucket','report'].forEach(t => {
+  ['task','routine','bucket','report','goal'].forEach(t => {
     const btn = document.getElementById('bn-' + t);
     if(btn) btn.classList.toggle('active', t === tab);
   });
@@ -1996,13 +2049,64 @@ function switchTab(tab){
   const titleBlock = document.querySelector('.title-block');
   if(titleBlock) titleBlock.style.display = (tab === 'task') ? '' : 'none';
   // 各タブのヘッダー切り替え
-  ['routine','bucket','report'].forEach(t => {
+  ['routine','bucket','report','goal'].forEach(t => {
     const h = document.getElementById('header' + t.charAt(0).toUpperCase() + t.slice(1));
     if(h) h.style.display = (t === tab) ? '' : 'none';
   });
   _currentTab = tab;
   window.scrollTo(0, 0);
   if(tab==='task') renderYesterdayCard();
+  if(tab==='goal') renderGoals();
+}
+
+// ── Goal Functions ──────────────────────────────────────────
+function goalMonthKey(){
+  const d=new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+}
+function loadGoals(){
+  return JSON.parse(localStorage.getItem('diary-goals-'+goalMonthKey())||'[]');
+}
+function saveGoals(goals){
+  localStorage.setItem('diary-goals-'+goalMonthKey(),JSON.stringify(goals));
+}
+function renderGoals(){
+  const goals=loadGoals();
+  const d=new Date();
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const label=months[d.getMonth()]+' '+d.getFullYear();
+  const lel=document.getElementById('goalMonthLabel');
+  if(lel) lel.textContent=label;
+  const list=document.getElementById('goalList');
+  if(!list) return;
+  if(!goals.length){
+    list.innerHTML='<div class="goal-empty">まだ目標がありません<br>今月達成したいことを追加しよう</div>';
+    return;
+  }
+  list.innerHTML=goals.map((g,i)=>`
+    <div class="goal-item">
+      <span class="goal-item-num">${i+1}</span>
+      <span class="goal-item-text">${g.text.replace(/</g,'&lt;')}</span>
+      <button class="goal-item-del" onclick="deleteGoal(${i})" aria-label="削除">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>`).join('');
+}
+function addGoal(){
+  const inp=document.getElementById('goalInput');
+  const text=(inp.value||'').trim();
+  if(!text) return;
+  const goals=loadGoals();
+  goals.push({text});
+  saveGoals(goals);
+  inp.value='';
+  renderGoals();
+}
+function deleteGoal(idx){
+  const goals=loadGoals();
+  goals.splice(idx,1);
+  saveGoals(goals);
+  renderGoals();
 }
 
 function toggleAddSheet(){
