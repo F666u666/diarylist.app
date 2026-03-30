@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-18';
+const APP_VERSION='20260331-19';
 
 /* Audio */
 /* ── Audio ── */
@@ -1957,20 +1957,25 @@ setInterval(function(){
 
   draw();
 
+  let _restartLock = false;
   function tryRestartCanvas(retries){
+    if(_restartLock) return;
+    _restartLock = true;
+    setTimeout(()=>{ _restartLock=false; }, 3000);
     // canvas要素を新しく作り直す（iOSの古いcontextは復帰しないため）
     const parent = cv.parentNode;
     if(parent){
       const newCv = document.createElement('canvas');
       newCv.id = cv.id;
-      newCv.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;';
+      newCv.style.cssText = cv.style.cssText;
       parent.replaceChild(newCv, cv);
       cv = newCv;
     }
-    cv.width = W = window.innerWidth || W;
-    cv.height = H = window.innerHeight || H;
+    cv.width = W = window.innerWidth || document.documentElement.clientWidth || W;
+    cv.height = H = window.innerHeight || document.documentElement.clientHeight || H;
     ctx = cv.getContext('2d');
     if(!ctx){
+      _restartLock = false;
       if((retries||0) < 10) setTimeout(()=>tryRestartCanvas((retries||0)+1), 500);
       return;
     }
