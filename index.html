@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-12';
+const APP_VERSION='20260331-13';
 
 /* Audio */
 /* ── Audio ── */
@@ -1916,8 +1916,8 @@ setInterval(function(){
         const by = H * (b.cy + Math.cos(t * b.spd + b.oy) * 0.08);
         const br = W * b.r;
         const g = ctx.createRadialGradient(bx, by, 0, bx, by, br);
-        const a0 = isDark ? 0.28 : 0.30;
-        const a1 = isDark ? 0.08 : 0.10;
+        const a0 = isDark ? 0.45 : 0.52;
+        const a1 = isDark ? 0.14 : 0.18;
         g.addColorStop(0,   `rgba(${ar},${ag},${ab},${a0})`);
         g.addColorStop(0.5, `rgba(${ar},${ag},${ab},${a1})`);
         g.addColorStop(1,   `rgba(${ar},${ag},${ab},0)`);
