@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-15';
+const APP_VERSION='20260331-16';
 
 /* Audio */
 /* ── Audio ── */
@@ -1810,7 +1810,7 @@ async function checkAppUpdate(){
     if(!res.ok)return;
     const text=await res.text();
     const m=text.match(/APP_VERSION='([^']+)'/);
-    if(m&&m[1]!==APP_VERSION)location.reload(true);
+    if(m&&m[1]!==APP_VERSION)location.reload();
   }catch(e){}
 }
 
@@ -2428,7 +2428,7 @@ function importData(){
 if('serviceWorker' in navigator){
   navigator.serviceWorker.register('/sw.js').catch(e=>console.warn('[SW]',e));
   navigator.serviceWorker.addEventListener('message',e=>{
-    if(e.data==='reload') location.reload(true);
+    if(e.data==='reload') location.reload();
   });
 }
 </script>
@@ -2441,6 +2441,8 @@ if('serviceWorker' in navigator){
   <button class="data-btn" onclick="toggleImportArea()">インポート</button>
   <textarea class="import-area" id="importArea" placeholder="エクスポートしたテキストを貼り付け…" onclick="event.stopPropagation()"></textarea>
   <button class="import-exec-btn" id="importExecBtn" onclick="importData()">インポートを実行</button>
+  <div class="panel-divider"></div>
+  <button class="data-btn" onclick="localStorage.removeItem('theme-v8');localStorage.removeItem('accent-v8');location.reload();">デザインをリセット</button>
 </div>
 </body>
 </html>
