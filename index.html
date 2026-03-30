@@ -1801,7 +1801,7 @@ document.addEventListener('visibilitychange',function(){
     }
     D=loadDay(viewDate);
     updateDateUI();
-    renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();
+    renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();renderGoals();
     switchRoutineSection('todo');
   }
 });
@@ -1815,7 +1815,7 @@ setInterval(function(){
     checkCarry();
     D=loadDay(viewDate);
     updateDateUI();
-    renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();
+    renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderStreak();renderYesterdayCard();renderGoals();
     switchRoutineSection('todo');
   }
 },60000);
