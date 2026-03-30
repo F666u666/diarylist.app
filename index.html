@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-9';
+const APP_VERSION='20260331-10';
 
 /* Audio */
 /* ── Audio ── */
@@ -1958,7 +1958,7 @@ setInterval(function(){
     ctx = cv.getContext('2d');
     if(!ctx){
       // iOSがまだGPUリソースを解放していない場合はリトライ
-      if((retries||0) < 6) setTimeout(()=>tryRestartCanvas((retries||0)+1), 500);
+      if((retries||0) < 20) setTimeout(()=>tryRestartCanvas((retries||0)+1), 500);
       return;
     }
     if(rafId) cancelAnimationFrame(rafId);
@@ -1973,14 +1973,13 @@ setInterval(function(){
   let lastT = -1;
   setInterval(() => {
     if(t === lastT){
-      // ctxが無効な場合はcanvasをリサイズして再取得（iOSでコンテキストが復帰することがある）
       if(!ctx){
-        cv.width = W = window.innerWidth || W;
-        cv.height = H = window.innerHeight || H;
-        ctx = cv.getContext('2d');
+        // ctxがない場合はtryRestartCanvasのリトライ機構を使う
+        tryRestartCanvas(0);
+      } else {
+        if(rafId) cancelAnimationFrame(rafId);
+        draw();
       }
-      if(rafId) cancelAnimationFrame(rafId);
-      draw();
     }
     lastT = t;
   }, 1000);
@@ -2416,7 +2415,7 @@ function importData(){
     const data=JSON.parse(document.getElementById('importArea').value);
     Object.keys(data).forEach(k=>localStorage.setItem(k,data[k]));
     alert('インポート完了！再起動します。');
-    location.reload(true);
+    setTimeout(()=>location.reload(), 100);
   }catch(e){alert('形式が正しくありません。');}
 }
 
