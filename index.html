@@ -466,6 +466,10 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 [data-theme="dark"] .yday-carry{color:rgba(240,235,226,0.30);}
 
 .app-footer{text-align:center;padding:20px 0 32px;position:relative;z-index:1;}
+.footer-socials{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:2px;}
+.footer-social-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 14px;border-radius:20px;background:rgba(255,255,255,0.50);border:1px solid rgba(26,20,16,0.10);color:rgba(26,20,16,0.52);font-family:'Noto Sans JP',sans-serif;font-size:11px;letter-spacing:0.04em;text-decoration:none;transition:all 0.2s;backdrop-filter:blur(10px);}
+[data-theme="dark"] .footer-social-btn{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.14);color:rgba(240,235,226,0.52);}
+.footer-social-btn:hover{background:rgba(255,255,255,0.80);color:var(--accent);border-color:var(--accent);transform:translateY(-1px);}
 .footer-label{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.14em;color:rgba(26,20,16,0.30);display:block;margin-bottom:4px;}
 [data-theme="dark"] .footer-label{color:rgba(240,235,226,0.30);}
 .footer-link{font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.06em;color:rgba(26,20,16,0.60);text-decoration:none;transition:color 0.2s;border-bottom:0.5px solid rgba(26,20,16,0.20);padding-bottom:1px;}
@@ -764,7 +768,16 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 <div class="app-footer">
   <span class="footer-label">created by</span>
-  <a href="https://x.com/think_log66" target="_blank" rel="noopener" class="footer-link">@think_log66</a>
+  <div class="footer-socials">
+    <a href="https://x.com/think_log66" target="_blank" rel="noopener" class="footer-social-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="13" height="13"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>@think_log66</span>
+    </a>
+    <a href="https://www.instagram.com/log_think" target="_blank" rel="noopener" class="footer-social-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
+      <span>@log_think</span>
+    </a>
+  </div>
 </div>
 
 <div class="swipe-hint" id="swipeHint">← スワイプで過去を見る</div>
