@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-8';
+const APP_VERSION='20260331-9';
 
 /* Audio */
 /* ── Audio ── */
@@ -1131,7 +1131,7 @@ function resetAllData(){
   diaryKeys.forEach(k=>localStorage.removeItem(k));
   location.reload();
 }
-document.addEventListener('click',e=>{const wrap=document.querySelector('.color-picker-wrap');if(wrap&&!wrap.contains(e.target)){document.getElementById('colorPanel').classList.remove('open');}});
+document.addEventListener('click',e=>{const wrap=document.querySelector('.color-picker-wrap');const panel=document.getElementById('colorPanel');if(wrap&&!wrap.contains(e.target)&&panel&&!panel.contains(e.target)){panel.classList.remove('open');}});
 
 /* Theme */
 let dark=localStorage.getItem('theme-v8')==='dark';
@@ -2435,8 +2435,10 @@ if('serviceWorker' in navigator){
   <div class="panel-label">データ移行</div>
   <button class="data-btn" onclick="exportData()">エクスポート（クリップボードにコピー）</button>
   <button class="data-btn" onclick="toggleImportArea()">インポート</button>
-  <textarea class="import-area" id="importArea" placeholder="エクスポートしたテキストを貼り付け…"></textarea>
+  <textarea class="import-area" id="importArea" placeholder="エクスポートしたテキストを貼り付け…" onclick="event.stopPropagation()"></textarea>
   <button class="import-exec-btn" id="importExecBtn" onclick="importData()">インポートを実行</button>
+  <div class="panel-divider"></div>
+  <button class="data-btn" style="color:rgba(200,60,50,0.7);" onclick="if(confirm('Wish List を全て削除しますか？')){G.bucket=[];saveGlobal();renderBucket();document.getElementById('colorPanel').classList.remove('open');}">Wish List を全消去</button>
 </div>
 </body>
 </html>
