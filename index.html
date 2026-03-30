@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-17';
+const APP_VERSION='20260331-18';
 
 /* Audio */
 /* ── Audio ── */
@@ -1904,6 +1904,11 @@ setInterval(function(){
   function draw(){
     try {
       if(!ctx){ ctx = cv.getContext('2d'); if(!ctx){ rafId = requestAnimationFrame(draw); return; } }
+      // canvas サイズが未設定の場合は修正
+      if(cv.width < 2 || cv.height < 2){
+        W = cv.width = window.innerWidth || document.documentElement.clientWidth || 390;
+        H = cv.height = window.innerHeight || document.documentElement.clientHeight || 844;
+      }
       const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
       const ar = accentR, ag = accentG, ab = accentB;
 
