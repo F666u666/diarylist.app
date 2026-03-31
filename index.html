@@ -949,7 +949,7 @@ input,textarea{user-select:text !important;-webkit-user-select:text !important;-
 
 </div>
 <script>
-const APP_VERSION='20260331-19';
+const APP_VERSION='20260331-20';
 
 /* Audio */
 /* ── Audio ── */
@@ -2416,9 +2416,17 @@ checkCarry();
 // データ移行
 function exportData(){
   const g=JSON.parse(localStorage.getItem('diary-global-v1')||'{}');
-  const json=JSON.stringify({bucket:g.bucket||[]});
+  const days={};
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k&&k.startsWith('diary-day-')){
+      const dk=k.replace('diary-day-','');
+      days[dk]=JSON.parse(localStorage.getItem(k)||'{}');
+    }
+  }
+  const json=JSON.stringify({bucket:g.bucket||[],routines:g.routines||[],days});
   navigator.clipboard.writeText(json)
-    .then(()=>alert('Wish Listをコピーしました！\n新しいアプリの歯車→インポートに貼り付けてください。'))
+    .then(()=>alert('データをコピーしました！\n新しいアプリの歯車→インポートに貼り付けてください。'))
     .catch(()=>prompt('以下をコピーしてください：',json));
 }
 function toggleImportArea(){
@@ -2430,14 +2438,22 @@ function toggleImportArea(){
 function importData(){
   try{
     const data=JSON.parse(document.getElementById('importArea').value);
-    if(Array.isArray(data.bucket)&&data.bucket.length){
-      G.bucket=data.bucket;
+    const imported=[];
+    if(Array.isArray(data.bucket)&&data.bucket.length){G.bucket=data.bucket;imported.push('Wish List');}
+    if(Array.isArray(data.routines)&&data.routines.length){G.routines=data.routines;imported.push('ルーティン');}
+    if(data.days&&typeof data.days==='object'){
+      const keys=Object.keys(data.days);
+      keys.forEach(k=>localStorage.setItem('diary-day-'+k,JSON.stringify(data.days[k])));
+      if(keys.length)imported.push('日記（'+keys.length+'日分）');
+      D=loadDay(viewDate);
+    }
+    if(imported.length){
       saveGlobal();
-      alert('Wish Listをインポートしました！');
+      alert(imported.join('・')+'をインポートしました！');
       document.getElementById('colorPanel').classList.remove('open');
-      renderBucket();
+      renderBucket();renderRoutineBar();renderTodos();
     }else{
-      alert('Wish Listのデータが見つかりませんでした。');
+      alert('インポートできるデータが見つかりませんでした。');
     }
   }catch(e){alert('形式が正しくありません。');}
 }
