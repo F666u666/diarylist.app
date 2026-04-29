@@ -1945,8 +1945,6 @@ setInterval(function(){
       const ar = accentR, ag = accentG, ab = accentB;
 
       ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = isDark ? bgDark : bgLight;
-      ctx.fillRect(0, 0, W, H);
 
       blobs.forEach(b => {
         const bx = W * (b.cx + Math.sin(t * b.spd + b.ox) * 0.10);
