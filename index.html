@@ -1945,6 +1945,8 @@ setInterval(function(){
       const ar = accentR, ag = accentG, ab = accentB;
 
       ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = isDark ? bgDark : bgLight;
+      ctx.fillRect(0, 0, W, H);
 
       blobs.forEach(b => {
         const bx = W * (b.cx + Math.sin(t * b.spd + b.ox) * 0.10);
@@ -2017,17 +2019,22 @@ setInterval(function(){
     if(!document.hidden) tryRestartCanvas(0);
   });
 
-  // Watchdog: if animation stops for any reason, restart it
+  // Watchdog: if animation stops, restart it. Escalate to full canvas
+  // recreate if draw() alone can't recover (iOS long-suspend case).
   let lastT = -1;
+  let stuckCount = 0;
   setInterval(() => {
     if(t === lastT){
-      if(!ctx){
-        // ctxがない場合はtryRestartCanvasのリトライ機構を使う
+      stuckCount++;
+      if(!ctx || stuckCount >= 3){
+        stuckCount = 0;
         tryRestartCanvas(0);
       } else {
         if(rafId) cancelAnimationFrame(rafId);
         draw();
       }
+    } else {
+      stuckCount = 0;
     }
     lastT = t;
   }, 1000);

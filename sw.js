@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260429-23';
+const CACHE = 'dl-20260429-24';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
