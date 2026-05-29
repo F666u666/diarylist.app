@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260529-unified-headers';
+const CACHE = 'dl-20260529-a-grade';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
