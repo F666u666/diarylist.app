@@ -671,9 +671,9 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .goal-summary.breathe{animation:goalBreathe 0.85s ease both;}
 @keyframes goalBreathe{0%{box-shadow:0 0 0 0 hsl(var(--ah),var(--as),var(--al),0)}45%{box-shadow:0 0 0 6px hsl(var(--ah),var(--as),var(--al),0.14)}100%{box-shadow:0 0 0 0 hsl(var(--ah),var(--as),var(--al),0)}}
 .goal-mini-badge{font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:300;letter-spacing:0.02em;color:var(--accent);padding:2px 6px;border-radius:999px;border:1px solid hsl(var(--ah),var(--as),var(--al),0.22);background:hsl(var(--ah),var(--as),var(--al),0.08);white-space:nowrap;max-width:84px;overflow:hidden;text-overflow:ellipsis;}
-.lineage-mark{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;color:var(--accent);opacity:0.55;cursor:pointer;flex-shrink:0;transition:opacity 0.2s,transform 0.2s;}
-.lineage-mark svg{width:100%;height:100%;}
-.lineage-mark:hover,.lineage-mark:active{opacity:1;transform:scale(1.1);}
+.lineage-note{display:flex;align-items:center;gap:6px;font-family:'Noto Serif JP',serif;font-size:11px;font-weight:300;color:rgba(26,20,16,0.45);padding:4px 0 0;letter-spacing:0.02em;}
+[data-theme="dark"] .lineage-note{color:rgba(240,235,226,0.45);}
+.lineage-note svg{width:13px;height:13px;color:var(--accent);flex-shrink:0;}
 .bucket-focus-btn,.goal-main-btn{font-family:'Noto Serif JP',serif;font-size:9px;font-weight:300;letter-spacing:0.08em;color:rgba(26,20,16,0.34);padding:3px 7px;border-radius:999px;border:1px solid rgba(26,20,16,0.08);white-space:nowrap;transition:all .18s;}
 [data-theme="dark"] .bucket-focus-btn,[data-theme="dark"] .goal-main-btn{color:rgba(240,235,226,0.38);border-color:rgba(255,255,255,0.12);}
 .bucket-focus-btn.active,.goal-main-btn.active{color:#fff;background:var(--accent);border-color:var(--accent);box-shadow:0 3px 10px hsl(var(--ah),var(--as),var(--al),0.22);}
@@ -2122,13 +2122,13 @@ function renderTodos(){
     const memoDot=t.memo?'<span class="memo-dot"></span>':'';
     const goal=goalById(t.goalId);
     const goalMark=goal?`<span class="goal-mini-badge">${esc(goal.text)}</span>`:'';
-    // Lineage: task came from a Wish (pulled or via Goal). Show mini hub glyph.
+    // Lineage source — surface inside the expanded memo area only.
     const linkedWish=t.wishId?(G.bucket||[]).find(b=>String(b.id)===String(t.wishId)):null;
-    const lineageMark=linkedWish?`<span class="lineage-mark" onclick="event.stopPropagation();showLineage('${esc(linkedWish.text).replace(/'/g,"\\'")}',${linkedWish.id})" title="${esc(linkedWish.text)}">${SVG_LINEAGE_MINI}</span>`:'';
+    const lineageNote=linkedWish?`<div class="lineage-note">${SVG_LINEAGE_MINI}<span>${esc(linkedWish.text)}</span></div>`:'';
     if(isPast()){
-      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${lineageMark}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${t.memo?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo)}</div></div>`:''}`;
+      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${(t.memo||linkedWish)?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo||'')}</div>${lineageNote}</div>`:''}`;
     } else {
-      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${lineageMark}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea></div>`;
+      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea>${lineageNote}</div>`;
     }
     list.appendChild(el);
   });
