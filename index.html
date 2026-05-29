@@ -115,6 +115,16 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 
 /* CARD */
 .card{background:var(--card-bg,rgba(255,255,255,0.62));backdrop-filter:blur(32px) saturate(1.6) brightness(1.04);-webkit-backdrop-filter:blur(32px) saturate(1.6) brightness(1.04);border:1px solid rgba(255,255,255,0.92);border-bottom:1px solid rgba(255,255,255,0.65);border-right:1px solid rgba(255,255,255,0.65);border-radius:28px;padding:20px 24px 24px 24px;box-shadow:0 1px 0 rgba(255,255,255,1) inset,0 6px 32px rgba(160,150,140,0.10),0 2px 12px rgba(160,150,140,0.08);position:relative;overflow:visible;transition:background 0.8s,border-color 0.8s,box-shadow 0.8s;}
+
+/* S7 · Per-tab ambient sigil — a small corner SVG unique per surface.
+   Each tab gets a quiet metaphor: Wish=star, Goal=concentric target,
+   Routine=cycle arrow, Report=bar chart. Today is the baseline (no sigil). */
+.card::after{content:'';position:absolute;top:14px;right:18px;width:24px;height:24px;opacity:0;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;transition:opacity 0.4s;}
+#paneBucket.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 3 14 9 20 9.5 15.5 13.5 17 19.5 12 16.5 7 19.5 8.5 13.5 4 9.5 10 9 12 3'/></svg>");}
+#paneGoal.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5.5'/><circle cx='12' cy='12' r='1.8' fill='%235b89a8'/></svg>");}
+#paneRoutine.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12a9 9 0 0 1 9-9 9 9 0 0 1 7.2 3.6'/><path d='M21 12a9 9 0 0 1-9 9 9 9 0 0 1-7.2-3.6'/><polyline points='19.5 3 19.5 7 15.5 7'/><polyline points='4.5 21 4.5 17 8.5 17'/></svg>");}
+#paneReport.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.4' stroke-linecap='round'><line x1='6' y1='20' x2='6' y2='13'/><line x1='12' y1='20' x2='12' y2='6'/><line x1='18' y1='20' x2='18' y2='9'/></svg>");}
+[data-theme="dark"] .card::after{filter:invert(0.85);}
 [data-theme="dark"] .card{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.16);box-shadow:0 1px 0 rgba(255,255,255,0.10) inset,0 8px 32px rgba(0,0,0,0.35);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);}
 .card.all-done{background:hsl(var(--ah),calc(var(--as) * 0.4),93%);border-color:hsl(var(--ah),calc(var(--as) * 0.5),82%);box-shadow:0 1px 0 rgba(255,255,255,0.90) inset,0 8px 32px hsl(var(--ah),var(--as),var(--al),0.15);}
 [data-theme="dark"] .card.all-done{background:hsl(var(--ah),calc(var(--as) - 20%),20%);border-color:hsl(var(--ah),var(--as),35%);}
@@ -216,6 +226,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-item::after{content:'明日へ →';position:absolute;right:24px;top:50%;transform:translateY(-50%);font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:0.10em;color:var(--warm);opacity:0;transition:opacity 0.2s;pointer-events:none;z-index:-1;}
 .task-item.swipe-armed::after{opacity:1;}
 .task-item.swiping{transition:none;}
+.task-item.drag-active{z-index:30;box-shadow:0 1px 0 rgba(255,255,255,0.90) inset,0 12px 32px rgba(26,20,16,0.12),0 4px 14px hsl(var(--ah),var(--as),var(--al),0.20);background:rgba(255,255,255,0.78);}
+[data-theme="dark"] .task-item.drag-active{background:rgba(40,40,42,0.85);}
 #todoList{position:relative;}
 [data-theme="dark"] .task-item{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.22);box-shadow:0 1px 0 rgba(255,255,255,0.10) inset,0 2px 12px rgba(0,0,0,0.25);}
 .task-item::before{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,1) 50%,transparent);}
@@ -659,6 +671,9 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .goal-summary.breathe{animation:goalBreathe 0.85s ease both;}
 @keyframes goalBreathe{0%{box-shadow:0 0 0 0 hsl(var(--ah),var(--as),var(--al),0)}45%{box-shadow:0 0 0 6px hsl(var(--ah),var(--as),var(--al),0.14)}100%{box-shadow:0 0 0 0 hsl(var(--ah),var(--as),var(--al),0)}}
 .goal-mini-badge{font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:300;letter-spacing:0.02em;color:var(--accent);padding:2px 6px;border-radius:999px;border:1px solid hsl(var(--ah),var(--as),var(--al),0.22);background:hsl(var(--ah),var(--as),var(--al),0.08);white-space:nowrap;max-width:84px;overflow:hidden;text-overflow:ellipsis;}
+.lineage-mark{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;color:var(--accent);opacity:0.55;cursor:pointer;flex-shrink:0;transition:opacity 0.2s,transform 0.2s;}
+.lineage-mark svg{width:100%;height:100%;}
+.lineage-mark:hover,.lineage-mark:active{opacity:1;transform:scale(1.1);}
 .bucket-focus-btn,.goal-main-btn{font-family:'Noto Serif JP',serif;font-size:9px;font-weight:300;letter-spacing:0.08em;color:rgba(26,20,16,0.34);padding:3px 7px;border-radius:999px;border:1px solid rgba(26,20,16,0.08);white-space:nowrap;transition:all .18s;}
 [data-theme="dark"] .bucket-focus-btn,[data-theme="dark"] .goal-main-btn{color:rgba(240,235,226,0.38);border-color:rgba(255,255,255,0.12);}
 .bucket-focus-btn.active,.goal-main-btn.active{color:#fff;background:var(--accent);border-color:var(--accent);box-shadow:0 3px 10px hsl(var(--ah),var(--as),var(--al),0.22);}
@@ -2042,6 +2057,17 @@ const SVG_BRAND_MARK=`<svg viewBox="0 0 28 28" aria-hidden="true">
   <!-- central self -->
   <circle cx="14" cy="14" r="2.1" fill="currentColor"/>
 </svg>`;
+
+/* Mini lineage glyph — tiny brand-mark variant for tasks pulled from a Wish */
+const SVG_LINEAGE_MINI=`<svg viewBox="0 0 14 14" aria-hidden="true">
+  <g stroke="currentColor" fill="none" stroke-linecap="round" stroke-width="0.9">
+    <line x1="7" y1="7" x2="7" y2="2.5"/>
+    <line x1="7" y1="7" x2="11" y2="9.3"/>
+    <line x1="7" y1="7" x2="7" y2="11.5"/>
+    <line x1="7" y1="7" x2="3" y2="4.7"/>
+  </g>
+  <circle cx="7" cy="7" r="1.4" fill="currentColor"/>
+</svg>`;
 const SVG_CHECK=`<svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="2 6 5 9 10 3"/></svg>`;
 const SVG_X=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="11" height="11"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg>`;
 let editCatMode=false,addCatOpen=false;
@@ -2096,10 +2122,13 @@ function renderTodos(){
     const memoDot=t.memo?'<span class="memo-dot"></span>':'';
     const goal=goalById(t.goalId);
     const goalMark=goal?`<span class="goal-mini-badge">${esc(goal.text)}</span>`:'';
+    // Lineage: task came from a Wish (pulled or via Goal). Show mini hub glyph.
+    const linkedWish=t.wishId?(G.bucket||[]).find(b=>String(b.id)===String(t.wishId)):null;
+    const lineageMark=linkedWish?`<span class="lineage-mark" onclick="event.stopPropagation();showLineage('${esc(linkedWish.text).replace(/'/g,"\\'")}',${linkedWish.id})" title="${esc(linkedWish.text)}">${SVG_LINEAGE_MINI}</span>`:'';
     if(isPast()){
-      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${t.memo?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo)}</div></div>`:''}`;
+      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${lineageMark}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${t.memo?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo)}</div></div>`:''}`;
     } else {
-      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea></div>`;
+      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${lineageMark}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea></div>`;
     }
     list.appendChild(el);
   });
@@ -2156,6 +2185,12 @@ function toggleTodo(id){
 }
 function delTodo(id){if(isPast())return;D.todos=D.todos.filter(t=>t.id!==id);saveDay(viewDate,D);renderTodos();renderWeeklyReport();renderStreak();playDelete();}
 
+/* Lineage reveal: tap the mini hub glyph on a task to surface its source Wish */
+function showLineage(wishText,wishId){
+  showToast(`このWishから引き寄せた · ${wishText}`);
+  vib(8);
+}
+
 /* Defer todo to tomorrow — used by swipe-left delight */
 function deferTodoToTomorrow(id){
   if(isPast())return;
@@ -2176,49 +2211,122 @@ function deferTodoToTomorrow(id){
   renderTodos();renderWeeklyReport();renderStreak();
 }
 
-/* Swipe-left to defer interaction.
-   Delegated on the task list. On a task-item, horizontal drag past
-   -72px reveals "明日へ" and commits on release. Snaps back if released
-   under threshold. Vertical movement cancels (preserves page scroll). */
-(function initSwipeDefer(){
+/* Unified gesture handler: swipe-left to defer + long-press to reorder.
+   - Idle: a touchstart starts a 480ms long-press timer.
+   - If finger moves >6px before the timer fires:
+       horizontal → swipe-defer mode (drag past -72px to commit)
+       vertical → cancel, let page scroll
+   - If 480ms passes with no movement:
+       reorder mode (drag the item up/down, release to commit new order)
+   Modes are exclusive and only Today's not-done tasks participate. */
+(function initTaskGestures(){
   const list=document.getElementById('todoList');
   if(!list)return;
-  let activeItem=null,startX=0,startY=0,dx=0,locked='',swipeId=null;
-  const reset=(el)=>{if(el){el.style.transition='transform 0.28s cubic-bezier(.4,0,.2,1)';el.style.transform='';el.classList.remove('swiping');setTimeout(()=>{if(el)el.style.transition='';},300);}};
+  let item=null,startX=0,startY=0,dx=0,dy=0,locked='',mode='idle',taskId=null,lpTimer=null,startIdx=-1,items=[];
+  const resetTransform=(el)=>{if(el){el.style.transition='transform 0.28s cubic-bezier(.4,0,.2,1)';el.style.transform='';el.classList.remove('swiping','swipe-armed','drag-active');setTimeout(()=>{if(el)el.style.transition='';},300);}};
+  const enterReorder=()=>{
+    if(!item)return;
+    mode='reorder';
+    item.classList.add('drag-active');
+    items=Array.from(list.querySelectorAll('.task-item')).filter(x=>x!==item);
+    startIdx=Array.from(list.querySelectorAll('.task-item')).indexOf(item);
+    vib(18);
+  };
   list.addEventListener('touchstart',(e)=>{
     const it=e.target.closest('.task-item');
     if(!it||isPast())return;
-    if(e.target.closest('button')||e.target.closest('.memo-row'))return;
+    if(e.target.closest('button')||e.target.closest('.memo-row textarea'))return;
     if(it.classList.contains('done'))return;
-    activeItem=it;startX=e.touches[0].clientX;startY=e.touches[0].clientY;dx=0;locked='';
-    swipeId=parseInt(it.dataset.id,10);
+    item=it;startX=e.touches[0].clientX;startY=e.touches[0].clientY;dx=0;dy=0;locked='';mode='idle';
+    taskId=parseInt(it.dataset.id,10);
+    clearTimeout(lpTimer);
+    lpTimer=setTimeout(()=>{if(mode==='idle'&&item)enterReorder();},480);
   },{passive:true});
   list.addEventListener('touchmove',(e)=>{
-    if(!activeItem)return;
+    if(!item)return;
     const x=e.touches[0].clientX,y=e.touches[0].clientY;
-    const adx=Math.abs(x-startX),ady=Math.abs(y-startY);
-    if(!locked){if(adx>6&&adx>ady*1.4)locked='x';else if(ady>6)locked='y';}
-    if(locked==='y'){activeItem=null;return;}
-    if(locked!=='x')return;
-    dx=Math.min(0,Math.max(-160,x-startX));
-    activeItem.style.transition='';
-    activeItem.style.transform=`translateX(${dx}px)`;
-    activeItem.classList.toggle('swipe-armed',dx<-72);
+    dx=x-startX;dy=y-startY;
+    if(mode==='idle'){
+      const adx=Math.abs(dx),ady=Math.abs(dy);
+      if(adx>6||ady>6){clearTimeout(lpTimer);}
+      if(adx>6&&adx>ady*1.4)mode='swipe';
+      else if(ady>6)mode='cancel';
+    }
+    if(mode==='swipe'){
+      dx=Math.min(0,Math.max(-160,dx));
+      item.style.transition='';
+      item.style.transform=`translateX(${dx}px)`;
+      item.classList.toggle('swipe-armed',dx<-72);
+    } else if(mode==='reorder'){
+      item.style.transition='';
+      item.style.transform=`translateY(${dy}px) scale(1.03)`;
+      // Compute target index: count items whose center is above the dragged center
+      const rect=item.getBoundingClientRect();
+      const cy=rect.top+rect.height/2;
+      let tgt=0;
+      items.forEach(it=>{
+        const r=it.getBoundingClientRect();
+        if((r.top+r.height/2)<cy)tgt++;
+      });
+      // Visual reflow: shift other items up/down to make space
+      items.forEach(it=>{
+        const r=it.getBoundingClientRect();
+        const mid=r.top+r.height/2;
+        const h=rect.height+10;
+        it.style.transition='transform 0.18s';
+        it.style.transform=mid<cy?(startIdx>tgt?'translateY(0)':`translateY(-${h}px)`):(startIdx<tgt?'translateY(0)':`translateY(${h}px)`);
+      });
+    } else if(mode==='cancel'){
+      item=null;
+    }
   },{passive:true});
   list.addEventListener('touchend',()=>{
-    if(!activeItem){return;}
-    if(dx<-72&&swipeId!=null){
-      activeItem.style.transition='transform 0.32s cubic-bezier(.4,0,.2,1),opacity 0.32s';
-      activeItem.style.transform='translateX(-110%)';
-      activeItem.style.opacity='0';
-      const id=swipeId;
-      setTimeout(()=>deferTodoToTomorrow(id),280);
+    clearTimeout(lpTimer);
+    if(!item){return;}
+    if(mode==='swipe'){
+      if(dx<-72&&taskId!=null){
+        item.style.transition='transform 0.32s cubic-bezier(.4,0,.2,1),opacity 0.32s';
+        item.style.transform='translateX(-110%)';item.style.opacity='0';
+        const id=taskId;
+        setTimeout(()=>deferTodoToTomorrow(id),280);
+      } else resetTransform(item);
+    } else if(mode==='reorder'){
+      const rect=item.getBoundingClientRect();
+      const cy=rect.top+rect.height/2;
+      let tgt=0;
+      items.forEach(it=>{const r=it.getBoundingClientRect();if((r.top+r.height/2)<cy)tgt++;});
+      // Commit: splice the array. Map DOM children to D.todos by id.
+      const all=Array.from(list.querySelectorAll('.task-item'));
+      const fromIdx=startIdx;
+      let toIdx=tgt;
+      if(fromIdx<toIdx)toIdx--;  // adjust for removed item
+      // Filter array: D.todos may be filtered by category, so map IDs to full
+      // array positions. Build current visible order, then re-insert.
+      const visibleIds=all.map(el=>parseInt(el.dataset.id,10));
+      const movedId=visibleIds[fromIdx];
+      visibleIds.splice(fromIdx,1);
+      visibleIds.splice(toIdx,0,movedId);
+      // Re-order D.todos to match visibleIds at the top, keeping non-visible at end
+      const visibleSet=new Set(visibleIds);
+      const reordered=visibleIds.map(id=>D.todos.find(t=>t.id===id)).filter(Boolean);
+      const rest=D.todos.filter(t=>!visibleSet.has(t.id));
+      D.todos=[...reordered,...rest];
+      saveDay(viewDate,D);
+      items.forEach(it=>{it.style.transition='';it.style.transform='';});
+      resetTransform(item);
+      setTimeout(()=>{renderTodos();},220);
+      vib(10);
     } else {
-      reset(activeItem);
+      resetTransform(item);
     }
-    activeItem=null;swipeId=null;dx=0;locked='';
+    item=null;taskId=null;dx=0;dy=0;locked='';mode='idle';
   });
-  list.addEventListener('touchcancel',()=>{reset(activeItem);activeItem=null;swipeId=null;dx=0;locked='';});
+  list.addEventListener('touchcancel',()=>{
+    clearTimeout(lpTimer);
+    if(item)resetTransform(item);
+    items.forEach(it=>{it.style.transition='';it.style.transform='';});
+    item=null;taskId=null;mode='idle';
+  });
 })();
 
 /* Bucket */
