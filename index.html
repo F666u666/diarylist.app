@@ -234,8 +234,9 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-item.done .del-btn{opacity:0.4;}
 .task-item.done:hover .del-btn{opacity:1;}
 .carried-mark{font-size:9px;opacity:0.45;margin-left:5px;}
-.cat-badge{font-size:9px;font-family:'Noto Sans JP',sans-serif;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.32);padding:2px 6px;border-radius:6px;border:1px solid rgba(26,20,16,0.07);white-space:nowrap;flex-shrink:0;background:rgba(255,255,255,0.52);max-width:64px;overflow:hidden;text-overflow:ellipsis;}
+.cat-badge{font-size:9px;font-family:'Noto Sans JP',sans-serif;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.32);padding:2px 6px;border-radius:6px;border:1px solid rgba(26,20,16,0.07);white-space:nowrap;flex-shrink:0;background:rgba(255,255,255,0.52);max-width:54px;overflow:hidden;text-overflow:ellipsis;}
 [data-theme="dark"] .cat-badge{color:rgba(240,235,226,0.35);border-color:rgba(240,235,226,0.12);background:rgba(255,255,255,0.08);}
+.task-item.cat-filtered .cat-badge{display:none;}
 .empty-msg{text-align:center;color:rgba(26,20,16,0.42);font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.06em;padding:22px 0 6px;line-height:1.7;}
 [data-theme="dark"] .empty-msg{color:rgba(240,235,226,0.42);}
 .empty-msg-deco{display:block;margin:0 auto 10px;width:28px;height:1px;background:linear-gradient(90deg,transparent,rgba(26,20,16,0.20),transparent);}
@@ -1961,9 +1962,10 @@ function renderTodos(){
     if(!isPast()){const trg=document.getElementById('todoAddTrigger');if(trg){trg.classList.remove('hint-pulse');void trg.offsetWidth;trg.classList.add('hint-pulse');setTimeout(()=>trg.classList.remove('hint-pulse'),5000);}}
     return;
   }
+  const filtered=G.activeCat!=='すべて';
   f.forEach((t,i)=>{
     const el=document.createElement('div');
-    el.className='task-item'+(t.done?' done':'');
+    el.className='task-item'+(t.done?' done':'')+(filtered?' cat-filtered':'');
     el.style.animationDelay=(i*0.05)+'s';
     el.dataset.id=t.id;
     const carry=t.carried?'<span class="carried-mark">↑</span>':'';
@@ -2076,7 +2078,7 @@ function delBucket(id){G.bucket=G.bucket.filter(b=>b.id!==id);if(String(G.active
 
 document.getElementById('todoInput').addEventListener('keydown',e=>{if(e.key==='Enter'){addTodo();}else if(e.key==='Escape'){e.target.value='';e.target.blur();}});
 document.getElementById('todoInput').addEventListener('blur',e=>{setTimeout(()=>{if(!e.target.value.trim())collapseAddRow();},150);});
-function expandAddRow(){const row=document.getElementById('todoAddRow');row.classList.add('expanded');setTimeout(()=>{const inp=document.getElementById('todoInput');inp.focus();setTimeout(()=>{try{inp.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},120);},60);}
+function expandAddRow(){const row=document.getElementById('todoAddRow');const inp=document.getElementById('todoInput');row.classList.add('expanded');inp.focus();setTimeout(()=>{try{inp.scrollIntoView({block:'center',behavior:'smooth'});}catch(e){}},180);}
 function collapseAddRow(){const row=document.getElementById('todoAddRow');if(!row)return;row.classList.remove('expanded');}
 document.getElementById('bucketInput').addEventListener('keydown',e=>{if(e.key==='Enter'){addBucket();e.target.blur();}});
 
