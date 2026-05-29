@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260529-a-grade';
+const CACHE = 'dl-20260530-s-pass';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

@@ -28,7 +28,32 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 [data-theme="dark"] .b3{width:650px;height:650px;background:radial-gradient(circle,rgba(var(--ar),var(--ag),var(--ab),0.14) 0%,transparent 60%);bottom:-150px;left:10%;animation-duration:38s;animation-delay:-22s;}
 [data-theme="dark"] .b4{width:550px;height:550px;background:radial-gradient(circle,rgba(var(--ar),var(--ag),var(--ab),0.12) 0%,transparent 60%);bottom:5%;right:0%;animation-duration:29s;animation-delay:-7s;}
 @keyframes blobDrift{0%{transform:translate(0,0) scale(1);}25%{transform:translate(60px,-70px) scale(1.05);}50%{transform:translate(-50px,85px) scale(0.95);}75%{transform:translate(75px,45px) scale(1.04);}100%{transform:translate(0,0) scale(1);}}
-:root{--ah:204;--as:30%;--al:51%;--accent:hsl(var(--ah),var(--as),var(--al));--ar:91;--ag:137;--ab:168;--warm:hsl(36,52%,62%);}
+:root{
+  /* ── Accent ── */
+  --ah:204;--as:30%;--al:51%;
+  --accent:hsl(var(--ah),var(--as),var(--al));
+  --ar:91;--ag:137;--ab:168;
+  --warm:hsl(36,52%,62%);
+  /* ── Typography token system ──
+     Display = headlines, brand mark, dates
+     Body    = Japanese body, task text, prose
+     Sans    = English chrome (nav labels)
+     Sans-JP = Japanese chrome (chips, actions)
+     Num     = numbers and Latin meta
+     Weights: 200=caption · 300=meta · 400=body · 500=action · 600=display-num */
+  --font-display:'Playfair Display SC',serif;
+  --font-body:'Noto Serif JP',serif;
+  --font-sans:'Geist',sans-serif;
+  --font-sans-jp:'Noto Sans JP',sans-serif;
+  --font-num:'Geist Mono','Noto Serif JP',serif;
+  /* Composite for mixed JP+Latin where numbers should be mono */
+  --font-num-meta:'Geist Mono','Noto Serif JP',serif;
+  --w-caption:200;
+  --w-meta:300;
+  --w-body:400;
+  --w-action:500;
+  --w-display:600;
+}
 [data-theme="dark"]{--warm:hsl(36,48%,68%);}
 
 .top-bar{display:none;}
@@ -63,6 +88,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .title-block{position:relative;z-index:1;text-align:center;padding:20px 0 4px;width:100%;max-width:none;}
 .site-title{font-family:'Playfair Display SC',serif;font-style:normal;font-weight:400;font-size:min(4.2vw,22px);letter-spacing:0.30em;line-height:1;color:rgba(26,20,16,0.42);transition:color 0.5s;margin:0;display:flex;align-items:center;white-space:nowrap;}
 .site-title-text{display:inline-block;text-transform:uppercase;}
+.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-right:10px;color:var(--accent);flex-shrink:0;}
+.brand-mark svg{width:100%;height:100%;}
 [data-theme="dark"] .site-title{color:rgba(240,235,226,0.75);}
 .t-line{display:none;}
 .site-sub{font-family:'Noto Serif JP',serif;font-weight:200;font-size:10px;letter-spacing:0.38em;text-transform:uppercase;color:rgba(26,20,16,0.42);margin-top:16px;}
@@ -215,6 +242,11 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-item.done .check-btn,.task-item.done .bucket-check{animation:checkPop 0.42s cubic-bezier(.34,1.56,.64,1) both;}
 @keyframes checkPop{0%{transform:scale(0.55) rotate(-18deg);}55%{transform:scale(1.22) rotate(4deg);}100%{transform:scale(1) rotate(0);}}
 .bucket-check{width:22px;height:22px;border-radius:5px;border:1.5px solid rgba(26,20,16,0.20);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.22s;background:rgba(255,255,255,0.52);}
+.bucket-pull-btn{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(26,20,16,0.10);color:var(--accent);flex-shrink:0;transition:all 0.22s;cursor:pointer;margin-right:4px;}
+.bucket-pull-btn svg{width:13px;height:13px;}
+.bucket-pull-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 2px 8px hsl(var(--ah),var(--as),var(--al),0.35);}
+.bucket-pull-btn:active{transform:scale(0.92);}
+[data-theme="dark"] .bucket-pull-btn{border-color:rgba(240,235,226,0.18);}
 [data-theme="dark"] .bucket-check{border-color:rgba(240,235,226,0.30);background:rgba(255,255,255,0.08);}
 .bucket-check:hover{border-color:var(--accent);}
 .bucket-check svg{opacity:0;transition:opacity 0.18s;}
@@ -238,8 +270,11 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-item.cat-filtered .cat-badge{display:none;}
 .empty-msg{text-align:center;color:rgba(26,20,16,0.42);font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.06em;padding:22px 0 6px;line-height:1.7;}
 [data-theme="dark"] .empty-msg{color:rgba(240,235,226,0.42);}
-.empty-msg-deco{display:block;margin:0 auto 10px;width:28px;height:1px;background:linear-gradient(90deg,transparent,rgba(26,20,16,0.20),transparent);}
-[data-theme="dark"] .empty-msg-deco{background:linear-gradient(90deg,transparent,rgba(240,235,226,0.22),transparent);}
+.empty-msg-deco{display:block;margin:0 auto 12px;width:56px;height:56px;opacity:0.6;color:var(--accent);}
+.empty-msg-deco svg{width:100%;height:100%;display:block;}
+.empty-msg-deco svg .deco-fill{fill:var(--accent);opacity:0.18;}
+.empty-msg-deco svg .deco-stroke{stroke:currentColor;fill:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;}
+[data-theme="dark"] .empty-msg-deco{opacity:0.75;}
 .empty-msg-sub{display:block;font-family:'Noto Serif JP',serif;font-weight:200;font-size:11px;letter-spacing:0.10em;color:rgba(26,20,16,0.32);margin-top:8px;}
 [data-theme="dark"] .empty-msg-sub{color:rgba(240,235,226,0.32);}
 .empty-msg-arrow{display:inline-block;animation:emptyArrowBob 2.4s ease-in-out infinite;color:var(--accent);font-size:14px;margin-left:4px;}
@@ -722,7 +757,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 
 <div class="title-block">
   <div class="title-top-row">
-    <div class="site-title"><span class="t-line"></span><span class="site-title-text">Diary List</span><span class="t-line"></span></div>
+    <div class="site-title"><span class="brand-mark"></span><span class="site-title-text">Diary List</span></div>
     <div class="title-actions">
       <div class="color-picker-wrap">
         <button class="title-icon-btn" onclick="toggleColorPanel()">
@@ -1137,14 +1172,21 @@ function _renderSound(freqs,duration){
 async function _initSounds(){
   if(_soundsReady)return;
   _soundsReady=true;
-  const[a,b,c,d,e]=await Promise.all([
-    _renderSound([[1047,0,.10,.6],[1319,.06,.09,.6],[1568,.12,.08,.6],[2093,.18,.07,.6]],1.2),
-    _renderSound([[1568,0,.12,.7],[2349,.09,.10,.7],[3136,.17,.07,.7]],1.2),
-    _renderSound([[880,0,.10,.35],[740,.08,.08,.35]],0.8),
-    _renderSound([[1319,0,.09,.5],[1661,.06,.08,.5],[1976,.11,.07,.5]],1.0),
-    _renderSound([[523,0,.13,.9],[659,.10,.12,.9],[784,.20,.11,.9],[1047,.30,.13,.9],[1319,.42,.11,.9],[2093,.55,.08,.5],[2637,.62,.07,.5],[3136,.68,.06,.5]],2.0),
+  const[a,b,c,d,e,f]=await Promise.all([
+    // add: soft mid-high pluck (E6) — gentle, unobtrusive
+    _renderSound([[1319,0,.08,.45]],0.6),
+    // check: SINGLE bright pluck (A5 + harmonic) — Things 3 / Apple Reminders inspired
+    _renderSound([[880,0,.10,.32],[1760,0,.04,.18]],0.5),
+    // del: low warm pair (A4 → E4) — gently descending
+    _renderSound([[440,0,.08,.28],[330,.06,.06,.24]],0.5),
+    // cat-add: same as add, kept for backward compatibility
+    _renderSound([[1319,0,.07,.40]],0.55),
+    // done: Cmaj9 ascending arpeggio (C5 E5 G5 B5 D6) — musical, resolves up
+    _renderSound([[523,0,.11,.7],[659,.10,.10,.7],[784,.20,.09,.7],[988,.30,.09,.8],[1175,.42,.08,.8],[1568,.56,.06,.5]],1.4),
+    // streak: warm two-note bell (G4 → C5) — "good morning" feeling
+    _renderSound([[392,0,.10,.55],[523,.16,.09,.55]],0.9),
   ]);
-  _sounds.add=a;_sounds.check=b;_sounds.del=c;_sounds.cat=d;_sounds.done=e;
+  _sounds.add=a;_sounds.check=b;_sounds.del=c;_sounds.cat=d;_sounds.done=e;_sounds.streak=f;
 }
 const _audioPool={};
 function _play(name){
@@ -1159,11 +1201,13 @@ function _play(name){
 document.addEventListener('touchstart',()=>_initSounds(),{once:true,passive:true});
 document.addEventListener('mousedown',()=>_initSounds(),{once:true});
 
-function playAdd(){_play('add');vib([12,50,8]);}
-function playCheck(){_play('check');vib(18);}
-function playDelete(){_play('del');vib([8,40,8]);}
-function playCatAdd(){_play('cat');vib(10);}
-function playAllDone(){_play('done');vib([15,40,15,40,30]);}
+const _audioOK=()=>{try{return !(matchMedia('(prefers-reduced-motion: reduce)').matches&&localStorage.getItem('sound-respect-rm')!=='off');}catch(e){return true;}};
+function playAdd(){if(_audioOK())_play('add');vib([12,50,8]);}
+function playCheck(){if(_audioOK())_play('check');vib(18);}
+function playDelete(){if(_audioOK())_play('del');vib([8,40,8]);}
+function playCatAdd(){if(_audioOK())_play('cat');vib(10);}
+function playAllDone(){if(_audioOK())_play('done');vib([15,40,15,40,30]);}
+function playStreak(){if(_audioOK())_play('streak');vib([20,80,20]);}
 
 // onboarding select: cute ascending 2-note chime, slightly randomized
 let _obSelectPitch=0;
@@ -1787,6 +1831,12 @@ function renderStreak(){
   const streak=calcStreak();
   const maxStreak=calcMaxStreak();
   const monthCount=calcMonthAchievements();
+  // Play streak sound when streak just incremented (avoid replay on every render)
+  try{
+    const prev=parseInt(sessionStorage.getItem('_lastStreak')||'-1',10);
+    if(streak>prev&&prev>=0&&streak>0)playStreak();
+    sessionStorage.setItem('_lastStreak',String(streak));
+  }catch(e){}
   const dotsHTML=days.map(d=>`
     <div class="streak-dot">
       <div class="streak-dot-circle${d.active?' active':''}${d.isToday?' today':''}"></div>
@@ -1928,6 +1978,31 @@ swipeTarget.addEventListener('touchend',e=>{
 /* Cats */
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 const abbrevCat=s=>{const t=String(s||'');return t.length>4?t.slice(0,3):t;};
+
+/* ── Brand SVG illustrations ──
+   Custom line-art marks. Single-stroke, accent-colored via currentColor.
+   Three variants: today (a horizon with rising point), wish (a starpoint
+   at the end of a curve), goal (an arc pointing forward). Each is its
+   own quiet metaphor instead of generic library icon. */
+const SVG_EMPTY_TODAY=`<svg viewBox="0 0 56 56" aria-hidden="true">
+  <circle class="deco-fill" cx="28" cy="34" r="14"/>
+  <path class="deco-stroke" d="M14 34 H42 M28 34 V20 M24 24 L28 20 L32 24"/>
+  <circle class="deco-fill" cx="28" cy="20" r="2.2"/>
+</svg>`;
+const SVG_EMPTY_WISH=`<svg viewBox="0 0 56 56" aria-hidden="true">
+  <path class="deco-stroke" d="M10 42 Q22 32 32 22 Q40 14 46 12"/>
+  <path class="deco-stroke" d="M44 8 L46 12 L42 13 L46 12 L48 16"/>
+  <circle class="deco-fill" cx="46" cy="12" r="2.4"/>
+</svg>`;
+const SVG_EMPTY_GOAL=`<svg viewBox="0 0 56 56" aria-hidden="true">
+  <path class="deco-stroke" d="M10 28 Q28 8 46 28"/>
+  <path class="deco-stroke" d="M42 24 L46 28 L42 32"/>
+  <circle class="deco-fill" cx="10" cy="28" r="2.2"/>
+</svg>`;
+const SVG_BRAND_MARK=`<svg viewBox="0 0 28 28" aria-hidden="true">
+  <circle cx="14" cy="14" r="11" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity="0.55"/>
+  <circle cx="14" cy="14" r="3" fill="currentColor" fill-opacity="0.45"/>
+</svg>`;
 const SVG_CHECK=`<svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="2 6 5 9 10 3"/></svg>`;
 const SVG_X=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="11" height="11"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg>`;
 let editCatMode=false,addCatOpen=false;
@@ -1962,11 +2037,11 @@ function renderTodos(){
   const f=G.activeCat==='すべて'?D.todos:D.todos.filter(t=>t.cat===G.activeCat);
   if(!f.length){
     if(isPast()){
-      list.innerHTML='<p class="empty-msg"><span class="empty-msg-deco"></span>この日のタスクはありません<span class="empty-msg-sub">記録なしの日</span></p>';
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>この日のタスクはありません<span class="empty-msg-sub">記録なしの日</span></p>`;
     } else if(G.activeCat!=='すべて'){
-      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco"></span>${esc(G.activeCat)}のタスクは未登録<span class="empty-msg-sub">他のカテゴリを見る or 追加する <span class="empty-msg-arrow">↑</span></span></p>`;
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>${esc(G.activeCat)}のタスクは未登録<span class="empty-msg-sub">他のカテゴリを見る or 追加する <span class="empty-msg-arrow">↑</span></span></p>`;
     } else {
-      list.innerHTML='<p class="empty-msg"><span class="empty-msg-deco"></span>今日は何をしますか？<span class="empty-msg-sub">上のフィールドから追加 <span class="empty-msg-arrow">↑</span></span></p>';
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>今日は何をしますか？<span class="empty-msg-sub">上のフィールドから追加 <span class="empty-msg-arrow">↑</span></span></p>`;
     }
     stats.textContent='';
     if(!isPast()){const trg=document.getElementById('todoAddTrigger');if(trg){trg.classList.remove('hint-pulse');void trg.offsetWidth;trg.classList.add('hint-pulse');setTimeout(()=>trg.classList.remove('hint-pulse'),5000);}}
@@ -2069,7 +2144,7 @@ function renderBucket(){
   }
 
   if(!total){
-    list.innerHTML='<p class="empty-msg">やりたいことを追加しよう</p>';
+    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>叶えたいことを書き出そう<span class="empty-msg-sub">いつかの自分が、ここから動き出す</span></p>`;
     return;
   }
 
@@ -2077,12 +2152,73 @@ function renderBucket(){
     const el=document.createElement('div');
     el.className='task-item'+(b.done?' done':'');
     el.style.animationDelay=(i*0.05)+'s';
-    el.innerHTML=`<button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label">${esc(b.text)}</span><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button>`;
+    el.innerHTML=`<button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label">${esc(b.text)}</span><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button>`;
     list.appendChild(el);
   });
 }
 function addBucket(){const inp=document.getElementById('bucketInput'),text=inp.value.trim();if(!text)return;const id=Date.now();G.bucket.unshift({id,text,done:false});if(!G.activeWishId)G.activeWishId=id;inp.value='';saveGlobal();renderBucket();renderGoalSummary();playAdd();}
 function toggleBucket(id){const b=G.bucket.find(b=>b.id===id);if(b){b.done=!b.done;saveGlobal();renderBucket();renderGoalSummary();playCheck();}}
+
+/* C · Signature Wish → Today pull interaction
+   Tap the → on a Wish item to draw it into Today as "{wish} への一歩".
+   Animates a thread from the item to the Today nav, then switches tab. */
+function pullWishToToday(id,btnEl){
+  const wish=G.bucket.find(b=>b.id===id);
+  if(!wish)return;
+  // Generate the today todo
+  const dayKey=toKey(new Date());
+  const day=loadDay(dayKey);
+  if(!day.todos)day.todos=[];
+  const newTask={id:Date.now(),text:`${wish.text} への一歩`,cat:G.cats?.[0]||'プライベート',done:false,memo:'',wishId:wish.id};
+  day.todos.unshift(newTask);
+  saveDay(dayKey,day);
+  // Animate the thread from the button to the Today nav
+  drawWishThread(btnEl);
+  playStreak();
+  showToast('今日の一歩に引き寄せました ✓');
+  // Switch to Today after animation
+  setTimeout(()=>{
+    switchTab('task');
+    // Reload today data (in case viewing today)
+    if(typeof D!=='undefined'&&viewDate===dayKey){D=loadDay(viewDate);renderTodos();renderGoalSummary();renderStreak();}
+  },720);
+}
+
+function drawWishThread(fromEl){
+  try{
+    const navBtn=document.getElementById('bn-task');
+    if(!fromEl||!navBtn)return;
+    const a=fromEl.getBoundingClientRect();
+    const b=navBtn.getBoundingClientRect();
+    const x1=a.left+a.width/2,y1=a.top+a.height/2;
+    const x2=b.left+b.width/2,y2=b.top+b.height/2;
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('class','wish-thread');
+    svg.style.cssText=`position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:990;`;
+    // Quadratic curve via control point that bows out to the right
+    const cx=Math.max(x1,x2)+60,cy=(y1+y2)/2;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M ${x1} ${y1} Q ${cx} ${cy} ${x2} ${y2}`);
+    path.setAttribute('stroke','var(--accent)');
+    path.setAttribute('stroke-width','1.5');
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke-linecap','round');
+    const len=Math.hypot(x2-x1,y2-y1)+200;
+    path.style.strokeDasharray=len;
+    path.style.strokeDashoffset=len;
+    path.style.opacity='0.9';
+    path.style.filter='drop-shadow(0 0 4px hsl(var(--ah),var(--as),var(--al),0.45))';
+    svg.appendChild(path);
+    document.body.appendChild(svg);
+    // Animate stroke draw
+    requestAnimationFrame(()=>{
+      path.style.transition='stroke-dashoffset 0.6s cubic-bezier(.4,0,.2,1), opacity 0.4s ease 0.4s';
+      path.style.strokeDashoffset='0';
+      setTimeout(()=>{path.style.opacity='0';},520);
+      setTimeout(()=>svg.remove(),1000);
+    });
+  }catch(e){}
+}
 function setActiveWish(id){G.activeWishId=id;G.activeGoalId=null;saveGlobal();renderBucket();renderGoals();renderGoalSummary();renderWeeklyReport();showToast('メインWishを設定しました ✓');}
 function delBucket(id){G.bucket=G.bucket.filter(b=>b.id!==id);if(String(G.activeWishId)===String(id)){G.activeWishId=G.bucket[0]?.id||null;G.activeGoalId=null;}saveGlobal();renderBucket();renderGoals();renderGoalSummary();playDelete();}
 
@@ -2096,6 +2232,8 @@ document.getElementById('bucketInput').addEventListener('keydown',e=>{if(e.key==
 const savedHex=localStorage.getItem('accent-v8')||'#5b89a8';
 const ccEl=document.getElementById('customColor');if(ccEl)ccEl.value=savedHex;
 applyAccent(savedHex);
+// Inject brand mark into header
+const bmEl=document.querySelector('.brand-mark');if(bmEl)bmEl.innerHTML=SVG_BRAND_MARK;
 updateDateUI();
 renderCats();renderTodos();renderBucket();renderRoutineBar();renderWeeklyReport();renderYesterdayCard();renderGoalSummary();
 
