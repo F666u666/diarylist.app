@@ -735,7 +735,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       </div>
     </div>
     <div id="routineFormView" style="display:none;">
-      <input class="routine-name-input" id="routineNameInput" placeholder="毎日続けたい習慣のかたまり（例：朝のルーティン）" />
+      <input class="routine-name-input" id="routineNameInput" placeholder="毎日続けたい習慣（例：朝のルーティン）" />
       <textarea class="routine-tasks-input" id="routineTasksInput" placeholder="タスクを1行ずつ入力&#10;例：&#10;運動&#10;瞑想&#10;日記を書く"></textarea>
       <div class="routine-hint">1行1タスクで入力してください</div>
       <div class="rd-row">
@@ -813,8 +813,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
   <div id="yesterdayCard" class="yday-card-standalone tab-pane" data-pane="task" style="display:none;"></div>
   <div class="card tab-pane" id="paneTask" data-pane="task">
     <div class="goal-summary" id="goalSummary"></div>
-    <div class="past-note" id="pastNote">昨日のあなたが、書いたもの</div>
-    <div class="past-note" id="futureNote" style="color:hsl(220,30%,58%);">明日のあなたへ、置いていく</div>
+    <div class="past-note" id="pastNote">昨日のあなたが書いたもの</div>
+    <div class="past-note" id="futureNote" style="color:hsl(220,30%,58%);">明日のあなたに置いていく</div>
     <div class="cat-area">
       <div class="cat-tabs-row"><div class="cat-tabs-wrap"><div class="cat-tabs" id="catTabs"></div></div><button class="cat-manage-toggle" id="catManageToggle" onclick="toggleCatManage()" aria-label="カテゴリ管理"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></div>
       <div class="add-cat-row" id="addCatRow">
@@ -829,7 +829,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
     <div class="add-row collapsible" id="todoAddRow">
       <button class="add-trigger" id="todoAddTrigger" onclick="expandAddRow()">＋ タスクを追加…</button>
       <div class="add-row-inner">
-        <input type="text" id="todoInput" placeholder="今日、そこに一歩近づく行動…"/>
+        <input type="text" id="todoInput" placeholder="今日の一歩を書く…"/>
         <button class="add-btn" onclick="addTodo()">+</button>
       </div>
     </div>
@@ -903,7 +903,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
     <div class="goal-month-label" id="goalMonthLabel"></div>
     <div class="goal-list" id="goalList"></div>
     <div class="goal-add-row">
-      <input class="goal-add-input" id="goalInput" type="text" placeholder="半年〜1年で届く射程の目標…" maxlength="60" onkeydown="if(event.key==='Enter')addGoal()">
+      <input class="goal-add-input" id="goalInput" type="text" placeholder="半年〜1年で届きそうな目標…" maxlength="60" onkeydown="if(event.key==='Enter')addGoal()">
       <button class="goal-add-btn" onclick="addGoal()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
           <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -2102,11 +2102,11 @@ function renderTodos(){
   const f=G.activeCat==='すべて'?D.todos:D.todos.filter(t=>t.cat===G.activeCat);
   if(!f.length){
     if(isPast()){
-      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>この日は静かな日だった<span class="empty-msg-sub">書き残されたものはありません</span></p>`;
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>この日は何も書かれていない<span class="empty-msg-sub">記録はありません</span></p>`;
     } else if(G.activeCat!=='すべて'){
-      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>${esc(G.activeCat)} はまだ静か<span class="empty-msg-sub">他のカテゴリを見る、もしくは追加 <span class="empty-msg-arrow">↑</span></span></p>`;
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>${esc(G.activeCat)} はまだ空<span class="empty-msg-sub">他のカテゴリを見るか追加する <span class="empty-msg-arrow">↑</span></span></p>`;
     } else {
-      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>今日は何をしますか？<span class="empty-msg-sub">上の枠に、一行から <span class="empty-msg-arrow">↑</span></span></p>`;
+      list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_TODAY}</span>今日は何をしますか？<span class="empty-msg-sub">上の枠から追加 <span class="empty-msg-arrow">↑</span></span></p>`;
     }
     stats.textContent='';
     if(!isPast()){const trg=document.getElementById('todoAddTrigger');if(trg){trg.classList.remove('hint-pulse');void trg.offsetWidth;trg.classList.add('hint-pulse');setTimeout(()=>trg.classList.remove('hint-pulse'),5000);}}
@@ -2356,7 +2356,7 @@ function renderBucket(){
   }
 
   if(!total){
-    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>5年後の自分を、書いてみよう<span class="empty-msg-sub">そこから、Goalと今日がつながっていく</span></p>`;
+    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>5年後の自分を書いてみよう<span class="empty-msg-sub">そこから Goal と今日がつながる</span></p>`;
     return;
   }
 
@@ -2843,7 +2843,7 @@ function renderGoalSummary(){
     el.className='goal-summary empty';
     el.innerHTML=`
       <div class="goal-summary-active">
-        <span class="goal-summary-empty-text">5年後の自分を置いてから、一歩ずつ</span>
+        <span class="goal-summary-empty-text">5年後の自分を置いてから一歩ずつ</span>
         <button class="goal-summary-link" onclick="switchTab('bucket')">Wishを書く</button>
       </div>
     `;
@@ -2873,7 +2873,7 @@ function renderGoals(){
   const list=document.getElementById('goalList');
   if(!list) return;
   if(!goals.length){
-    list.innerHTML='<div class="goal-empty">半年〜1年の射程に、まだ目印がない<br>Wishに届くための中間地点を、ひとつ置きましょう</div>';
+    list.innerHTML='<div class="goal-empty">半年〜1年で届きそうな目標を決めよう<br>Wishまでの中継地点になります</div>';
     renderGoalSummary();
     return;
   }
