@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260530-s-pass';
+const CACHE = 'dl-20260530-drop-lp';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
