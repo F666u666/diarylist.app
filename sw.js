@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260530-content-first';
+const CACHE = 'dl-20260530-tier-copy';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

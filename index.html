@@ -735,7 +735,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       </div>
     </div>
     <div id="routineFormView" style="display:none;">
-      <input class="routine-name-input" id="routineNameInput" placeholder="ルーティン名（例：朝のルーティン）" />
+      <input class="routine-name-input" id="routineNameInput" placeholder="毎日続けたい習慣のかたまり（例：朝のルーティン）" />
       <textarea class="routine-tasks-input" id="routineTasksInput" placeholder="タスクを1行ずつ入力&#10;例：&#10;運動&#10;瞑想&#10;日記を書く"></textarea>
       <div class="routine-hint">1行1タスクで入力してください</div>
       <div class="rd-row">
@@ -829,7 +829,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
     <div class="add-row collapsible" id="todoAddRow">
       <button class="add-trigger" id="todoAddTrigger" onclick="expandAddRow()">＋ タスクを追加…</button>
       <div class="add-row-inner">
-        <input type="text" id="todoInput" placeholder="タスクを追加…"/>
+        <input type="text" id="todoInput" placeholder="今日、そこに一歩近づく行動…"/>
         <button class="add-btn" onclick="addTodo()">+</button>
       </div>
     </div>
@@ -875,7 +875,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       <div class="bucket-goal-hint" id="bucketGoalHint"></div>
     </div>
     <div class="add-row">
-      <input type="text" id="bucketInput" placeholder="いつかやりたいことを追加…"/>
+      <input type="text" id="bucketInput" placeholder="5年後の自分が叶えていてほしいこと…"/>
       <button class="add-btn" onclick="addBucket()">+</button>
     </div>
     <div class="task-list" id="bucketList"></div>
@@ -903,7 +903,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
     <div class="goal-month-label" id="goalMonthLabel"></div>
     <div class="goal-list" id="goalList"></div>
     <div class="goal-add-row">
-      <input class="goal-add-input" id="goalInput" type="text" placeholder="目標を追加…" maxlength="60" onkeydown="if(event.key==='Enter')addGoal()">
+      <input class="goal-add-input" id="goalInput" type="text" placeholder="半年〜1年で届く射程の目標…" maxlength="60" onkeydown="if(event.key==='Enter')addGoal()">
       <button class="goal-add-btn" onclick="addGoal()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" width="16" height="16">
           <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
@@ -2356,7 +2356,7 @@ function renderBucket(){
   }
 
   if(!total){
-    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>叶えたいことを書き出そう<span class="empty-msg-sub">いつかの自分が、ここから動き出す</span></p>`;
+    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>5年後の自分を、書いてみよう<span class="empty-msg-sub">そこから、Goalと今日がつながっていく</span></p>`;
     return;
   }
 
@@ -2843,8 +2843,8 @@ function renderGoalSummary(){
     el.className='goal-summary empty';
     el.innerHTML=`
       <div class="goal-summary-active">
-        <span class="goal-summary-empty-text">叶えたいことを置いてから一歩ずつ</span>
-        <button class="goal-summary-link" onclick="switchTab('bucket')">Wishを追加</button>
+        <span class="goal-summary-empty-text">5年後の自分を置いてから、一歩ずつ</span>
+        <button class="goal-summary-link" onclick="switchTab('bucket')">Wishを書く</button>
       </div>
     `;
   }
@@ -2873,7 +2873,7 @@ function renderGoals(){
   const list=document.getElementById('goalList');
   if(!list) return;
   if(!goals.length){
-    list.innerHTML='<div class="goal-empty">まだ目標がありません<br>今月の軸をひとつ決めましょう</div>';
+    list.innerHTML='<div class="goal-empty">半年〜1年の射程に、まだ目印がない<br>Wishに届くための中間地点を、ひとつ置きましょう</div>';
     renderGoalSummary();
     return;
   }
