@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260529-1tap-badge';
+const CACHE = 'dl-20260529-tidy';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

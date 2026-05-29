@@ -60,8 +60,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .custom-row span{font-family:'Noto Serif JP',serif;font-size:11px;color:rgba(26,20,16,0.38);}
 [data-theme="dark"] .custom-row span{color:rgba(240,235,226,0.40);}
 
-.title-block{position:relative;z-index:1;text-align:center;padding:28px 0 8px;width:100%;max-width:none;}
-.site-title{font-family:'Playfair Display SC',serif;font-style:normal;font-weight:400;font-size:min(8vw,52px);letter-spacing:0.18em;line-height:1;color:rgba(26,20,16,0.62);transition:color 0.5s;margin:0;display:flex;align-items:center;width:100%;white-space:nowrap;}
+.title-block{position:relative;z-index:1;text-align:center;padding:20px 0 4px;width:100%;max-width:none;}
+.site-title{font-family:'Playfair Display SC',serif;font-style:normal;font-weight:400;font-size:min(4.2vw,22px);letter-spacing:0.30em;line-height:1;color:rgba(26,20,16,0.42);transition:color 0.5s;margin:0;display:flex;align-items:center;width:100%;white-space:nowrap;}
 .site-title-text{display:inline-block;padding:0 clamp(14px,3vw,28px);text-transform:uppercase;}
 [data-theme="dark"] .site-title{color:rgba(240,235,226,0.75);}
 .t-line{display:block;flex:1;height:0.5px;background:rgba(26,20,16,0.30);min-width:40px;}
@@ -234,7 +234,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-item.done .del-btn{opacity:0.4;}
 .task-item.done:hover .del-btn{opacity:1;}
 .carried-mark{font-size:9px;opacity:0.45;margin-left:5px;}
-.cat-badge{font-size:9px;font-family:'Noto Sans JP',sans-serif;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.32);padding:2px 6px;border-radius:6px;border:1px solid rgba(26,20,16,0.07);white-space:nowrap;flex-shrink:0;background:rgba(255,255,255,0.52);max-width:54px;overflow:hidden;text-overflow:ellipsis;}
+.cat-badge{font-size:9px;font-family:'Noto Sans JP',sans-serif;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.32);padding:2px 6px;border-radius:6px;border:1px solid rgba(26,20,16,0.07);white-space:nowrap;flex-shrink:0;background:rgba(255,255,255,0.52);max-width:48px;overflow:hidden;text-overflow:ellipsis;}
 [data-theme="dark"] .cat-badge{color:rgba(240,235,226,0.35);border-color:rgba(240,235,226,0.12);background:rgba(255,255,255,0.08);}
 .task-item.cat-filtered .cat-badge{display:none;}
 .empty-msg{text-align:center;color:rgba(26,20,16,0.42);font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.06em;padding:22px 0 6px;line-height:1.7;}
@@ -271,7 +271,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 [data-theme="dark"] .weekly-week-label{color:rgba(240,235,226,0.25);}
 
 /* SWIPE HINT */
-.streak-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:6px;}
+.streak-wrap{display:flex;flex-direction:column;align-items:center;gap:2px;margin-top:2px;}
 .streak-dots{display:flex;align-items:center;gap:6px;}
 .streak-dot{display:flex;flex-direction:column;align-items:center;gap:3px;}
 .streak-dot-circle{width:8px;height:8px;border-radius:50%;background:rgba(26,20,16,0.10);transition:background 0.3s,transform 0.3s;}
@@ -582,8 +582,19 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 
 
 /* Simple goal todo additions */
-.goal-summary{position:relative;z-index:2;margin:0 0 14px;padding:14px 16px;border-radius:18px;background:rgba(255,255,255,0.42);border:1px solid rgba(26,20,16,0.08);box-shadow:0 1px 0 rgba(255,255,255,0.70) inset;}
-[data-theme="dark"] .goal-summary{background:rgba(255,255,255,0.055);border-color:rgba(255,255,255,0.11);box-shadow:none;}
+.goal-summary{position:relative;z-index:2;margin:-4px 0 14px;padding:0 2px 12px;border-bottom:1px solid rgba(26,20,16,0.08);}
+[data-theme="dark"] .goal-summary{border-color:rgba(255,255,255,0.10);}
+.goal-summary.empty{padding:6px 2px 10px;}
+.goal-summary-active{display:flex;align-items:center;gap:8px;font-family:'Noto Serif JP',serif;font-weight:300;font-size:12px;letter-spacing:0.04em;color:rgba(26,20,16,0.55);}
+[data-theme="dark"] .goal-summary-active{color:rgba(240,235,226,0.55);}
+.goal-summary-arrow{color:var(--accent);font-size:11px;flex-shrink:0;}
+.goal-summary-goal{flex:1;color:rgba(26,20,16,0.82);font-weight:400;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-bottom:0.5px dotted transparent;transition:border-color 0.2s;}
+.goal-summary-goal:hover{border-bottom-color:var(--accent);}
+[data-theme="dark"] .goal-summary-goal{color:rgba(240,235,226,0.85);}
+.goal-summary-empty-text{flex:1;color:rgba(26,20,16,0.42);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+[data-theme="dark"] .goal-summary-empty-text{color:rgba(240,235,226,0.42);}
+.goal-summary-progress{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:rgba(26,20,16,0.35);letter-spacing:0.02em;flex-shrink:0;}
+[data-theme="dark"] .goal-summary-progress{color:rgba(240,235,226,0.40);}
 .goal-summary-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
 .goal-summary-label{font-family:'Noto Serif JP',serif;font-size:10px;font-weight:300;letter-spacing:0.18em;color:rgba(26,20,16,0.34);text-transform:uppercase;}
 [data-theme="dark"] .goal-summary-label{color:rgba(240,235,226,0.32);}
@@ -735,8 +746,6 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 <div class="wrapper" id="wrapper" style="width:100%;">
   <div id="yesterdayCard" class="yday-card-standalone tab-pane" data-pane="task" style="display:none;"></div>
   <div class="card tab-pane" id="paneTask" data-pane="task">
-    <div class="card-title">Today Tasks</div>
-    <div class="card-rule"></div>
     <div class="goal-summary" id="goalSummary"></div>
     <div class="past-note" id="pastNote">閲覧のみ — 過去の記録</div>
     <div class="past-note" id="futureNote" style="color:hsl(220,30%,58%);">予定を追加できます — 未来の日付</div>
@@ -1918,6 +1927,7 @@ swipeTarget.addEventListener('touchend',e=>{
 
 /* Cats */
 const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const abbrevCat=s=>{const t=String(s||'');return t.length>4?t.slice(0,3):t;};
 const SVG_CHECK=`<svg viewBox="0 0 12 12" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="11" height="11"><polyline points="2 6 5 9 10 3"/></svg>`;
 const SVG_X=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="11" height="11"><line x1="3" y1="3" x2="9" y2="9"/><line x1="9" y1="3" x2="3" y2="9"/></svg>`;
 let editCatMode=false,addCatOpen=false;
@@ -1973,9 +1983,9 @@ function renderTodos(){
     const goal=goalById(t.goalId);
     const goalMark=goal?`<span class="goal-mini-badge">${esc(goal.text)}</span>`:'';
     if(isPast()){
-      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${goalMark}<span class="cat-badge">${esc(t.cat)}</span></div>${t.memo?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo)}</div></div>`:''}`;
+      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${esc(t.text)}${carry}</span>${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${t.memo?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo)}</div></div>`:''}`;
     } else {
-      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${goalMark}<span class="cat-badge">${esc(t.cat)}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea></div>`;
+      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${esc(t.text)}${carry}</span>${memoDot}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea></div>`;
     }
     list.appendChild(el);
   });
@@ -2181,14 +2191,12 @@ setInterval(function(){
     };
   }
 
-  const particles = Array.from({length: 160}, newParticle);
+  const particles = Array.from({length: 100}, newParticle);
 
   const blobs = [
-    {cx:0.10,cy:0.08,r:0.45,ox:0,oy:0,spd:0.0007},
-    {cx:0.85,cy:0.20,r:0.42,ox:1,oy:2,spd:0.0011},
-    {cx:0.20,cy:0.50,r:0.40,ox:3,oy:1,spd:0.0009},
-    {cx:0.75,cy:0.65,r:0.38,ox:2,oy:3,spd:0.0008},
-    {cx:0.45,cy:0.85,r:0.35,ox:4,oy:0,spd:0.0010},
+    {cx:0.10,cy:0.08,r:0.50,ox:0,oy:0,spd:0.0007},
+    {cx:0.85,cy:0.30,r:0.46,ox:1,oy:2,spd:0.0010},
+    {cx:0.50,cy:0.85,r:0.42,ox:3,oy:1,spd:0.0009},
   ];
 
   function draw(){
@@ -2455,28 +2463,41 @@ function renderGoalSummary(){
   const wish=getActiveWish();
   const goal=getActiveGoal();
   const progress=goalProgress(goal);
-  const linkedRoutines=goal?((G.routines||[]).filter(r=>String(r.goalId)===String(goal.id)).length):0;
   if(isPast()){
     el.style.display='none';
     return;
   }
   el.style.display='block';
-  el.innerHTML=`
-    <div class="goal-summary-head">
-      <div class="goal-summary-label">Wish → Goal → Today</div>
-      <button class="goal-summary-link" onclick="switchTab('${wish?'goal':'bucket'}')">${wish?'目標を編集':'Wishを追加'}</button>
-    </div>
-    <div class="goal-path">
-      <div class="goal-path-line">
-        <span class="goal-path-pill">${wish?esc(wish.text):'叶えたいこと'}</span>
-        <span class="goal-path-arrow">→</span>
-        <span class="goal-path-pill">${goal?esc(goal.text):'短期ゴール'}</span>
+  if(goal){
+    // Active goal: tiny progress line
+    el.className='goal-summary';
+    el.innerHTML=`
+      <div class="goal-summary-active">
+        <span class="goal-summary-arrow">→</span>
+        <span class="goal-summary-goal" onclick="switchTab('goal')">${esc(goal.text)}</span>
+        ${progress.total?`<span class="goal-summary-progress">${progress.done}/${progress.total} · ${progress.rate}%</span>`:''}
       </div>
-    </div>
-    <div class="goal-summary-main">${goal?`今日のtodoは「${esc(goal.text)}」に向かっています`:(wish?'このWishに向けた短期ゴールを決めましょう':'まずWishリストで大きな目的を置きましょう')}</div>
-    <div class="goal-summary-sub">${goal?(progress.total?`${progress.done}/${progress.total}個のTodoが完了 · ${progress.rate}% · Routine ${linkedRoutines}件`:`TodoやRoutineを追加すると、このゴールの進捗になります · Routine ${linkedRoutines}件`):'Wish → Goal → Routine/Todo がつながると、毎日やる理由が見えます。'}</div>
-    ${goal?'':`<div class="goal-quick-row"><input class="goal-quick-input" id="goalQuickInput" placeholder="例：今月中に英語を20日続ける" maxlength="60" onkeydown="if(event.key==='Enter')addGoalFromToday()"><button class="goal-quick-btn" onclick="addGoalFromToday()" aria-label="目標を追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button></div>`}
-  `;
+    `;
+  } else if(wish){
+    // Wish but no goal: prompt for goal
+    el.className='goal-summary empty';
+    el.innerHTML=`
+      <div class="goal-summary-active">
+        <span class="goal-summary-arrow">→</span>
+        <span class="goal-summary-empty-text">${esc(wish.text)} に向けた目標を決める</span>
+        <button class="goal-summary-link" onclick="switchTab('goal')">追加</button>
+      </div>
+    `;
+  } else {
+    // Empty: tiny placeholder
+    el.className='goal-summary empty';
+    el.innerHTML=`
+      <div class="goal-summary-active">
+        <span class="goal-summary-empty-text">叶えたいことを置いてから一歩ずつ</span>
+        <button class="goal-summary-link" onclick="switchTab('bucket')">Wishを追加</button>
+      </div>
+    `;
+  }
 }
 function addGoalFromToday(){
   const inp=document.getElementById('goalQuickInput');
