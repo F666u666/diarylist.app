@@ -1204,17 +1204,17 @@ async function _initSounds(){
   if(_soundsReady)return;
   _soundsReady=true;
   const[a,b,c,d,e,f]=await Promise.all([
-    // add: soft mid-high pluck (E6) — gentle, unobtrusive
-    _renderSound([[1319,0,.08,.45]],0.6),
-    // check: SINGLE bright pluck (A5 + harmonic) — Things 3 / Apple Reminders inspired
-    _renderSound([[880,0,.10,.32],[1760,0,.04,.18]],0.5),
-    // del: low warm pair (A4 → E4) — gently descending
-    _renderSound([[440,0,.08,.28],[330,.06,.06,.24]],0.5),
-    // cat-add: same as add, kept for backward compatibility
-    _renderSound([[1319,0,.07,.40]],0.55),
-    // done: Cmaj9 ascending arpeggio (C5 E5 G5 B5 D6) — musical, resolves up
-    _renderSound([[523,0,.11,.7],[659,.10,.10,.7],[784,.20,.09,.7],[988,.30,.09,.8],[1175,.42,.08,.8],[1568,.56,.06,.5]],1.4),
-    // streak: warm two-note bell (G4 → C5) — "good morning" feeling
+    // add: 4-note ascending chime
+    _renderSound([[1047,0,.10,.6],[1319,.06,.09,.6],[1568,.12,.08,.6],[2093,.18,.07,.6]],1.2),
+    // check: 3-note ascending arpeggio
+    _renderSound([[1568,0,.12,.7],[2349,.09,.10,.7],[3136,.17,.07,.7]],1.2),
+    // del: warm descending pair
+    _renderSound([[880,0,.10,.35],[740,.08,.08,.35]],0.8),
+    // cat: 3-note ascending
+    _renderSound([[1319,0,.09,.5],[1661,.06,.08,.5],[1976,.11,.07,.5]],1.0),
+    // done: grand 8-note ascending sequence
+    _renderSound([[523,0,.13,.9],[659,.10,.12,.9],[784,.20,.11,.9],[1047,.30,.13,.9],[1319,.42,.11,.9],[2093,.55,.08,.5],[2637,.62,.07,.5],[3136,.68,.06,.5]],2.0),
+    // streak: warm two-note bell (G4 → C5)
     _renderSound([[392,0,.10,.55],[523,.16,.09,.55]],0.9),
   ]);
   _sounds.add=a;_sounds.check=b;_sounds.del=c;_sounds.cat=d;_sounds.done=e;_sounds.streak=f;

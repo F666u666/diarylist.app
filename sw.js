@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260530-plain-copy';
+const CACHE = 'dl-20260530-sound-revert';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
