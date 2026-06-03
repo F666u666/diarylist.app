@@ -30,10 +30,20 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 @keyframes blobDrift{0%{transform:translate(0,0) scale(1);}25%{transform:translate(60px,-70px) scale(1.05);}50%{transform:translate(-50px,85px) scale(0.95);}75%{transform:translate(75px,45px) scale(1.04);}100%{transform:translate(0,0) scale(1);}}
 :root{
   /* ── Accent ── */
-  --ah:204;--as:30%;--al:51%;
+  /* Base accent = deeper steel blue (Today tab). Slightly more saturated and a
+     touch darker than before so it reads as "chosen" not "pastel". */
+  --ah:204;--as:36%;--al:45%;
   --accent:hsl(var(--ah),var(--as),var(--al));
-  --ar:91;--ag:137;--ab:168;
+  --ar:74;--ag:121;--ab:156;
   --warm:hsl(36,52%,62%);
+  /* ── Per-tab accents — palette-harmonized with the base steel blue ──
+     - Wish = dusty rose (warm side, "ワクワク" feel)
+     - Goal = emerald teal (cool achievement, sits as analogous to blue)
+     They share saturation+lightness with --accent so they read as a system. */
+  --accent-wish:hsl(348,30%,55%);
+  --accent-wish-r:175;--accent-wish-g:103;--accent-wish-b:118;
+  --accent-goal:hsl(168,32%,38%);
+  --accent-goal-r:67;--accent-goal-g:128;--accent-goal-b:115;
   /* ── Typography token system ──
      Display = headlines, brand mark, dates
      Body    = Japanese body, task text, prose
@@ -120,8 +130,13 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
    Each tab gets a quiet metaphor: Wish=star, Goal=concentric target,
    Routine=cycle arrow, Report=bar chart. Today is the baseline (no sigil). */
 .card::after{content:'';position:absolute;top:14px;right:18px;width:24px;height:24px;opacity:0;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;transition:opacity 0.4s;}
-#paneBucket.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 3 14 9 20 9.5 15.5 13.5 17 19.5 12 16.5 7 19.5 8.5 13.5 4 9.5 10 9 12 3'/></svg>");}
-#paneGoal.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5.5'/><circle cx='12' cy='12' r='1.8' fill='%235b89a8'/></svg>");}
+#paneBucket.card::after{opacity:0.30;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23af6776' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 3 14 9 20 9.5 15.5 13.5 17 19.5 12 16.5 7 19.5 8.5 13.5 4 9.5 10 9 12 3'/></svg>");}
+#paneGoal.card::after{opacity:0.30;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23438073' stroke-width='1.2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5.5'/><circle cx='12' cy='12' r='1.8' fill='%23438073'/></svg>");}
+/* Per-tab accent scope: any element using var(--accent) inside these panes
+   picks up the tab-themed color via this local override. The --accent literal
+   must be re-declared here for the cascade to re-evaluate it. */
+#paneBucket{--ah:348;--as:30%;--al:55%;--ar:175;--ag:103;--ab:118;--accent:hsl(348,30%,55%);}
+#paneGoal{--ah:168;--as:32%;--al:38%;--ar:67;--ag:128;--ab:115;--accent:hsl(168,32%,38%);}
 #paneRoutine.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12a9 9 0 0 1 9-9 9 9 0 0 1 7.2 3.6'/><path d='M21 12a9 9 0 0 1-9 9 9 9 0 0 1-7.2-3.6'/><polyline points='19.5 3 19.5 7 15.5 7'/><polyline points='4.5 21 4.5 17 8.5 17'/></svg>");}
 #paneReport.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.4' stroke-linecap='round'><line x1='6' y1='20' x2='6' y2='13'/><line x1='12' y1='20' x2='12' y2='6'/><line x1='18' y1='20' x2='18' y2='9'/></svg>");}
 [data-theme="dark"] .card::after{filter:invert(0.85);}
@@ -781,7 +796,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 
 
 
-<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRGlhcnkgTGlzdCIsInNob3J0X25hbWUiOiJEaWFyeSBMaXN0IiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2YwZWRlOCIsInRoZW1lX2NvbG9yIjoiI2YwZWRlOCIsIm9yaWVudGF0aW9uIjoicG9ydHJhaXQiLCJpY29ucyI6W3sic3JjIjoiL2ljb24tMTgwLnBuZyIsInNpemVzIjoiMTgweDE4MCIsInR5cGUiOiJpbWFnZS9wbmciLCJwdXJwb3NlIjoiYW55In1dfQ==">
+<link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiRGlhcnkgTGlzdCIsInNob3J0X25hbWUiOiJEaWFyeSBMaXN0IiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2YwZWRlOCIsInRoZW1lX2NvbG9yIjoiIzRhNzk5YyIsIm9yaWVudGF0aW9uIjoicG9ydHJhaXQiLCJpY29ucyI6W3sic3JjIjoiL2ljb24tMTgwLnBuZyIsInNpemVzIjoiMTgweDE4MCIsInR5cGUiOiJpbWFnZS9wbmcifSx7InNyYyI6Ii9pY29uLTUxMi5wbmciLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dfQ==">
 <link rel="apple-touch-icon" href="/icon-180.png">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%23f0ede8'/><g fill='none' stroke='%235b6066' stroke-width='13' stroke-linecap='round' stroke-linejoin='round'><rect x='150' y='142' width='180' height='228' rx='14'/><line x1='180' y1='142' x2='180' y2='370'/><line x1='210' y1='204' x2='302' y2='204'/><line x1='210' y1='240' x2='302' y2='240'/><line x1='210' y1='276' x2='280' y2='276'/><path d='M312 366 L370 258 L408 280 L350 388 Z'/><path d='M312 366 L305 396 L334 380 Z' fill='%235b6066'/></g></svg>">
 <meta name="apple-mobile-web-app-capable" content="yes">
