@@ -273,6 +273,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .del-btn:hover{color:hsl(5,55%,55%);transform:scale(1.2);}
 .task-label{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.05em;text-align:center;color:rgba(26,20,16,0.82);transition:all 0.22s;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 [data-theme="dark"] .task-label{color:rgba(240,235,226,0.90);}
+/* Wish 用にはタスク名フル表示 — Wishは "やる気の源" だから省略しない */
+#paneBucket .task-label{white-space:normal;text-overflow:clip;overflow:visible;text-align:left;line-height:1.55;padding:2px 4px;}
 .task-item.done{background:rgba(255,255,255,0.22);border-color:rgba(26,20,16,0.05);box-shadow:none;}
 [data-theme="dark"] .task-item.done{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);box-shadow:none;}
 .task-item.done .task-label{text-decoration:line-through;text-decoration-color:rgba(26,20,16,0.22);text-decoration-thickness:1px;color:rgba(26,20,16,0.34);}
@@ -604,10 +606,14 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .goal-month-label{font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:0.18em;color:rgba(26,20,16,0.38);text-align:center;margin-bottom:20px;}
 [data-theme="dark"] .goal-month-label{color:rgba(240,235,226,0.32);}
 .goal-list{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;}
-.goal-item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.85);border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.goal-item{display:flex;flex-direction:column;gap:6px;padding:12px 14px;background:rgba(255,255,255,0.55);border:1px solid rgba(255,255,255,0.85);border-radius:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
 [data-theme="dark"] .goal-item{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.12);}
-.goal-item-num{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.06em;color:var(--accent);min-width:16px;text-align:center;font-weight:500;}
-.goal-item-text{flex:1;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:300;color:#1a1410;background:none;border:none;outline:none;padding:0;line-height:1.5;}
+.goal-item-row{display:flex;align-items:center;gap:10px;width:100%;}
+.goal-item-num{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);min-width:16px;text-align:left;font-weight:500;flex-shrink:0;}
+.goal-item-text{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:300;color:#1a1410;background:none;border:none;outline:none;padding:0;line-height:1.5;word-break:break-word;}
+.goal-item-wish{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:300;color:rgba(26,20,16,0.45);padding-left:26px;line-height:1.4;letter-spacing:0.02em;}
+[data-theme="dark"] .goal-item-wish{color:rgba(240,235,226,0.45);}
+.goal-item-wish::before{content:'↳ ';color:var(--accent);opacity:0.65;}
 [data-theme="dark"] .goal-item-text{color:#f0ebe2;}
 .goal-item-del{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(26,20,16,0.25);transition:all 0.2s;flex-shrink:0;}
 [data-theme="dark"] .goal-item-del{color:rgba(240,235,226,0.22);}
@@ -2810,16 +2816,16 @@ function goalProgress(goal){
 function renderGoalSummary(){
   const el=document.getElementById('goalSummary');
   if(!el)return;
-  const wish=getActiveWish();
   const goal=getActiveGoal();
   const progress=goalProgress(goal);
   if(isPast()){
     el.style.display='none';
     return;
   }
-  el.style.display='block';
+  // Show only when an active Goal exists — don't push users to "set a Wish".
+  // Tabs are independently usable.
   if(goal){
-    // Active goal: tiny progress line
+    el.style.display='block';
     el.className='goal-summary';
     el.innerHTML=`
       <div class="goal-summary-active">
@@ -2828,25 +2834,8 @@ function renderGoalSummary(){
         ${progress.total?`<span class="goal-summary-progress">${progress.done}/${progress.total} · ${progress.rate}%</span>`:''}
       </div>
     `;
-  } else if(wish){
-    // Wish but no goal: prompt for goal
-    el.className='goal-summary empty';
-    el.innerHTML=`
-      <div class="goal-summary-active">
-        <span class="goal-summary-arrow">→</span>
-        <span class="goal-summary-empty-text">${esc(wish.text)} に向けた目標を決める</span>
-        <button class="goal-summary-link" onclick="switchTab('goal')">追加</button>
-      </div>
-    `;
   } else {
-    // Empty: tiny placeholder
-    el.className='goal-summary empty';
-    el.innerHTML=`
-      <div class="goal-summary-active">
-        <span class="goal-summary-empty-text">5年後の自分を置いてから一歩ずつ</span>
-        <button class="goal-summary-link" onclick="switchTab('bucket')">Wishを書く</button>
-      </div>
-    `;
+    el.style.display='none';
   }
 }
 function addGoalFromToday(){
@@ -2880,15 +2869,15 @@ function renderGoals(){
   list.innerHTML=goals.map((g,i)=>{
     const wish=wishById(g.wishId);
     return `<div class="goal-item">
-      <span class="goal-item-num">${i+1}</span>
-      <span class="goal-item-text">${esc(g.text)}</span>
-      <div class="goal-item-meta">
-        ${wish?`<span class="goal-wish-badge">${esc(wish.text)}</span>`:''}
+      <div class="goal-item-row">
+        <span class="goal-item-num">${i+1}</span>
+        <span class="goal-item-text">${esc(g.text)}</span>
         <button class="goal-main-btn${String(G.activeGoalId)===String(g.id)?' active':''}" onclick="setMainGoal(${i})">${String(G.activeGoalId)===String(g.id)?'Main':'選ぶ'}</button>
         <button class="goal-item-del" onclick="deleteGoal(${i})" aria-label="削除">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
       </div>
+      ${wish?`<div class="goal-item-wish">${esc(wish.text)}</div>`:''}
     </div>`;
   }).join('');
   renderGoalSummary();
