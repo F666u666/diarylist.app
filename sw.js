@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260604-tab-colors';
+const CACHE = 'dl-20260604-text-tint';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

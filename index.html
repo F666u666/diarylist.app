@@ -130,13 +130,10 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
    Each tab gets a quiet metaphor: Wish=star, Goal=concentric target,
    Routine=cycle arrow, Report=bar chart. Today is the baseline (no sigil). */
 .card::after{content:'';position:absolute;top:14px;right:18px;width:24px;height:24px;opacity:0;pointer-events:none;z-index:1;background-repeat:no-repeat;background-position:center;background-size:contain;transition:opacity 0.4s;}
-#paneBucket.card::after{opacity:0.30;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23af6776' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 3 14 9 20 9.5 15.5 13.5 17 19.5 12 16.5 7 19.5 8.5 13.5 4 9.5 10 9 12 3'/></svg>");}
-#paneGoal.card::after{opacity:0.30;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23438073' stroke-width='1.2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5.5'/><circle cx='12' cy='12' r='1.8' fill='%23438073'/></svg>");}
-/* Per-tab accent scope: any element using var(--accent) inside these panes
-   picks up the tab-themed color via this local override. The --accent literal
-   must be re-declared here for the cascade to re-evaluate it. */
-#paneBucket{--ah:348;--as:30%;--al:55%;--ar:175;--ag:103;--ab:118;--accent:hsl(348,30%,55%);}
-#paneGoal{--ah:168;--as:32%;--al:38%;--ar:67;--ag:128;--ab:115;--accent:hsl(168,32%,38%);}
+#paneBucket.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a799c' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><polygon points='12 3 14 9 20 9.5 15.5 13.5 17 19.5 12 16.5 7 19.5 8.5 13.5 4 9.5 10 9 12 3'/></svg>");}
+#paneGoal.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234a799c' stroke-width='1.2'><circle cx='12' cy='12' r='9'/><circle cx='12' cy='12' r='5.5'/><circle cx='12' cy='12' r='1.8' fill='%234a799c'/></svg>");}
+/* Per-tab TEXT tint moved further down — see #paneBucket .task-label and
+   #paneGoal .goal-item-text rules. Buttons / icons stay in base accent. */
 #paneRoutine.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round'><path d='M3 12a9 9 0 0 1 9-9 9 9 0 0 1 7.2 3.6'/><path d='M21 12a9 9 0 0 1-9 9 9 9 0 0 1-7.2-3.6'/><polyline points='19.5 3 19.5 7 15.5 7'/><polyline points='4.5 21 4.5 17 8.5 17'/></svg>");}
 #paneReport.card::after{opacity:0.22;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235b89a8' stroke-width='1.4' stroke-linecap='round'><line x1='6' y1='20' x2='6' y2='13'/><line x1='12' y1='20' x2='12' y2='6'/><line x1='18' y1='20' x2='18' y2='9'/></svg>");}
 [data-theme="dark"] .card::after{filter:invert(0.85);}
@@ -291,8 +288,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 /* Wish 用にはタスク名フル表示 — Wishは "やる気の源" だから省略しない */
 #paneBucket .task-item{flex-direction:column;align-items:stretch;gap:8px;padding:16px 18px;}
 #paneBucket .bucket-row{display:flex;align-items:flex-start;gap:14px;}
-#paneBucket .task-label{flex:1;white-space:normal;text-overflow:clip;overflow:visible;text-align:left;line-height:1.6;font-size:14px;padding:0;color:rgba(26,20,16,0.88);font-weight:400;}
-[data-theme="dark"] #paneBucket .task-label{color:rgba(240,235,226,0.92);}
+#paneBucket .task-label{flex:1;white-space:normal;text-overflow:clip;overflow:visible;text-align:left;line-height:1.6;font-size:14px;padding:0;color:hsl(348,30%,38%);font-weight:400;}
+[data-theme="dark"] #paneBucket .task-label{color:hsl(348,35%,78%);}
 #paneBucket .bucket-actions{display:flex;justify-content:flex-end;align-items:center;gap:6px;padding-top:8px;border-top:1px solid rgba(26,20,16,0.06);margin-top:2px;}
 [data-theme="dark"] #paneBucket .bucket-actions{border-top-color:rgba(255,255,255,0.08);}
 #paneBucket .bucket-check{margin-top:2px;}
@@ -693,11 +690,11 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 [data-theme="dark"] .goal-item{background:rgba(255,255,255,0.07);border-color:rgba(255,255,255,0.12);}
 .goal-item-row{display:flex;align-items:center;gap:10px;width:100%;}
 .goal-item-num{font-family:'Geist Mono',monospace;font-size:11px;color:var(--accent);min-width:16px;text-align:left;font-weight:500;flex-shrink:0;}
-.goal-item-text{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:300;color:#1a1410;background:none;border:none;outline:none;padding:0;line-height:1.5;word-break:break-word;}
+.goal-item-text{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:500;color:hsl(168,40%,28%);background:none;border:none;outline:none;padding:0;line-height:1.5;word-break:break-word;}
 .goal-item-wish{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:300;color:rgba(26,20,16,0.45);padding-left:26px;line-height:1.4;letter-spacing:0.02em;}
 [data-theme="dark"] .goal-item-wish{color:rgba(240,235,226,0.45);}
 .goal-item-wish::before{content:'↳ ';color:var(--accent);opacity:0.65;}
-[data-theme="dark"] .goal-item-text{color:#f0ebe2;}
+[data-theme="dark"] .goal-item-text{color:hsl(168,30%,75%);}
 .goal-item-del{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(26,20,16,0.25);transition:all 0.2s;flex-shrink:0;}
 [data-theme="dark"] .goal-item-del{color:rgba(240,235,226,0.22);}
 .goal-item-del:hover{background:rgba(220,80,60,0.12);color:rgba(220,80,60,0.7);}
