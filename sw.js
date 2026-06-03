@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260530-wish-2row';
+const CACHE = 'dl-20260530-wish-edit-report';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

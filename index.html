@@ -281,6 +281,11 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 #paneBucket .bucket-actions{display:flex;justify-content:flex-end;align-items:center;gap:6px;padding-top:8px;border-top:1px solid rgba(26,20,16,0.06);margin-top:2px;}
 [data-theme="dark"] #paneBucket .bucket-actions{border-top-color:rgba(255,255,255,0.08);}
 #paneBucket .bucket-check{margin-top:2px;}
+#paneBucket .bucket-label{cursor:text;border-bottom:0.5px dotted transparent;transition:border-color 0.2s;padding-bottom:1px;}
+#paneBucket .bucket-label:hover{border-bottom-color:rgba(26,20,16,0.20);}
+[data-theme="dark"] #paneBucket .bucket-label:hover{border-bottom-color:rgba(240,235,226,0.22);}
+.bucket-edit-input{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:400;line-height:1.6;color:rgba(26,20,16,0.88);background:rgba(255,255,255,0.55);border:1px solid var(--accent);border-radius:8px;padding:6px 10px;outline:none;resize:none;overflow:hidden;box-shadow:0 0 0 3px hsl(var(--ah),var(--as),var(--al),0.12);}
+[data-theme="dark"] .bucket-edit-input{color:rgba(240,235,226,0.92);background:rgba(255,255,255,0.06);}
 .task-item.done{background:rgba(255,255,255,0.22);border-color:rgba(26,20,16,0.05);box-shadow:none;}
 [data-theme="dark"] .task-item.done{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);box-shadow:none;}
 .task-item.done .task-label{text-decoration:line-through;text-decoration-color:rgba(26,20,16,0.22);text-decoration-thickness:1px;color:rgba(26,20,16,0.34);}
@@ -526,6 +531,63 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 [data-theme="dark"] .tab-header-title{color:rgba(240,235,226,0.75);}
 
 #paneReport .card-title{display:none;}
+/* ── Report dashboard (tobacco-counter style) ── */
+.rpt-section-title{font-family:'Noto Serif JP',serif;font-size:12px;font-weight:500;letter-spacing:0.04em;color:rgba(26,20,16,0.72);margin:18px 2px 8px;display:flex;align-items:baseline;gap:8px;}
+.rpt-section-title:first-child{margin-top:4px;}
+[data-theme="dark"] .rpt-section-title{color:rgba(240,235,226,0.78);}
+.rpt-section-sub{font-family:'Geist Mono',monospace;font-size:10px;color:rgba(26,20,16,0.38);font-weight:400;letter-spacing:0;}
+[data-theme="dark"] .rpt-section-sub{color:rgba(240,235,226,0.40);}
+.rpt-card{background:rgba(255,255,255,0.52);border:1px solid rgba(26,20,16,0.06);border-radius:14px;padding:14px 16px;}
+[data-theme="dark"] .rpt-card{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.08);}
+.rpt-row-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.rpt-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;}
+.rpt-card-label{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:rgba(26,20,16,0.42);letter-spacing:0.04em;margin-bottom:8px;}
+[data-theme="dark"] .rpt-card-label{color:rgba(240,235,226,0.42);}
+.rpt-card-num{display:flex;align-items:baseline;gap:4px;font-family:'Geist Mono',monospace;color:var(--accent);font-weight:500;}
+.rpt-card-num.up{color:#3f8a4f;}
+.rpt-card-num.down{color:#b85a4f;}
+.rpt-card-num.flat{color:rgba(26,20,16,0.42);}
+[data-theme="dark"] .rpt-card-num.flat{color:rgba(240,235,226,0.45);}
+.rpt-card-num-big{font-size:28px;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;}
+.rpt-card-unit{font-family:'Noto Sans JP',sans-serif;font-size:11px;font-weight:400;color:rgba(26,20,16,0.55);margin-left:1px;}
+[data-theme="dark"] .rpt-card-unit{color:rgba(240,235,226,0.55);}
+
+/* trend chart */
+.rpt-chart-card{padding:12px 12px 4px;}
+.trend-chart{width:100%;height:130px;display:block;overflow:visible;}
+.trend-line{fill:none;stroke:var(--accent);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;}
+.trend-area{fill:var(--accent);opacity:0.10;}
+.trend-dot{fill:var(--accent);}
+.trend-dot.today{fill:var(--accent);stroke:#fff;stroke-width:1.5;}
+[data-theme="dark"] .trend-dot.today{stroke:#1c1f1a;}
+.trend-axis{font-family:'Geist Mono',monospace;font-size:8px;fill:rgba(26,20,16,0.42);letter-spacing:0.02em;}
+[data-theme="dark"] .trend-axis{fill:rgba(240,235,226,0.42);}
+
+/* pace */
+.rpt-pace-row{display:flex;align-items:baseline;justify-content:space-between;}
+.rpt-pace-label{font-family:'Noto Sans JP',sans-serif;font-size:11px;color:rgba(26,20,16,0.55);letter-spacing:0.02em;}
+[data-theme="dark"] .rpt-pace-label{color:rgba(240,235,226,0.55);}
+.rpt-pace-label span{font-size:10px;color:rgba(26,20,16,0.38);}
+[data-theme="dark"] .rpt-pace-label span{color:rgba(240,235,226,0.38);}
+.rpt-pace-val{display:flex;align-items:baseline;gap:2px;}
+.rpt-pace-num{font-family:'Geist Mono',monospace;font-size:22px;font-weight:500;color:var(--accent);letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;}
+.rpt-pace-divider{height:1px;background:rgba(26,20,16,0.06);margin:12px 0;}
+[data-theme="dark"] .rpt-pace-divider{background:rgba(255,255,255,0.08);}
+.rpt-pace-projection{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;font-family:'Noto Sans JP',sans-serif;font-size:11px;color:rgba(26,20,16,0.55);}
+[data-theme="dark"] .rpt-pace-projection{color:rgba(240,235,226,0.55);}
+.rpt-pace-pj-label{font-size:10px;color:rgba(26,20,16,0.42);margin-right:2px;}
+[data-theme="dark"] .rpt-pace-pj-label{color:rgba(240,235,226,0.42);}
+.rpt-pace-pj-val strong{font-family:'Geist Mono',monospace;font-size:14px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;letter-spacing:-0.01em;}
+.rpt-pace-pj-val.muted strong{color:rgba(26,20,16,0.72);}
+[data-theme="dark"] .rpt-pace-pj-val.muted strong{color:rgba(240,235,226,0.72);}
+.rpt-pace-pj-sep{color:rgba(26,20,16,0.20);}
+[data-theme="dark"] .rpt-pace-pj-sep{color:rgba(240,235,226,0.20);}
+
+/* mini stat cards */
+.rpt-card.mini{padding:12px 10px;text-align:center;}
+.rpt-mini-num{font-family:'Geist Mono',monospace;font-size:22px;font-weight:600;color:var(--accent);letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums;}
+.rpt-mini-lbl{font-family:'Noto Sans JP',sans-serif;font-size:10px;color:rgba(26,20,16,0.45);margin-top:6px;letter-spacing:0.02em;}
+[data-theme="dark"] .rpt-mini-lbl{color:rgba(240,235,226,0.45);}
 
 /* ── Routine Section Tabs ─── */
 .routine-section-tabs{display:flex;gap:0;margin-bottom:18px;border-radius:20px;background:rgba(26,20,16,0.05);padding:3px;}
@@ -1906,100 +1968,149 @@ function renderStreak(){
 function renderWeeklyReport(){
   const el=document.getElementById('weeklyReport');
   if(!el)return;
-  const weekDays=['日','月','火','水','木','金','土'];
   const goals=loadGoals();
-  const wishCounts={};
-  const goalCounts={};
-  const days=[];
-  let totalTodoDone=0,totalTodoAll=0,totalRoutineDone=0,maxActions=0;
 
-  for(let i=6;i>=0;i--){
-    const d=new Date();
-    d.setDate(d.getDate()-i);
+  // Walk 14 days for the trend chart + 7-day average
+  const trend=[];
+  let dayTodoDone=0,yestTodoDone=0;
+  for(let i=13;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
     const k=toKey(d);
     const day=loadDay(k);
     const checks=JSON.parse(localStorage.getItem('diary-routine-checks-'+k)||'{}');
-    let actions=0;
-    (day.todos||[]).forEach(t=>{
-      totalTodoAll++;
-      if(!t.done)return;
-      totalTodoDone++;actions++;
-      const goal=t.goalId?goals.find(g=>String(g.id)===String(t.goalId)):null;
-      const wishId=t.wishId||goal?.wishId||G.activeWishId||'__none';
-      wishCounts[wishId]=(wishCounts[wishId]||0)+1;
-      if(goal){goalCounts[goal.id]=(goalCounts[goal.id]||0)+1;}
-    });
-    Object.keys(checks).forEach(rid=>{
-      const routine=(G.routines||[]).find(r=>String(r.id)===String(rid));
-      const completed=Object.values(checks[rid]||{}).filter(Boolean).length;
-      if(!completed)return;
-      totalRoutineDone+=completed;actions+=completed;
-      const goal=routine?.goalId?goals.find(g=>String(g.id)===String(routine.goalId)):null;
-      const wishId=routine?.wishId||goal?.wishId||G.activeWishId||'__none';
-      wishCounts[wishId]=(wishCounts[wishId]||0)+completed;
-      if(goal){goalCounts[goal.id]=(goalCounts[goal.id]||0)+completed;}
-    });
-    maxActions=Math.max(maxActions,actions);
-    days.push({label:weekDays[d.getDay()],actions,isToday:i===0});
+    let count=0;
+    (day.todos||[]).forEach(t=>{if(t.done)count++;});
+    Object.keys(checks).forEach(rid=>{count+=Object.values(checks[rid]||{}).filter(Boolean).length;});
+    trend.push({date:d,key:k,count});
+    if(i===0)dayTodoDone=count;
+    if(i===1)yestTodoDone=count;
   }
+  // 7-day average for pace
+  const last7=trend.slice(-7).reduce((s,t)=>s+t.count,0);
+  const avg7=last7/7;
+  // Projection
+  const monthProj=Math.round(avg7*30);
+  const yearProj=Math.round(avg7*365);
+  // Comparison vs yesterday
+  const diff=dayTodoDone-yestTodoDone;
+  const diffSign=diff>0?'▲':diff<0?'▼':'·';
+  const diffClass=diff>0?'up':diff<0?'down':'flat';
 
-  const totalActions=totalTodoDone+totalRoutineDone;
-  const rate=totalTodoAll>0?Math.round(totalTodoDone/totalTodoAll*100):0;
-  const activeWish=getActiveWish();
-  const activeGoal=getActiveGoal();
-  const topWishEntry=Object.entries(wishCounts).sort((a,b)=>b[1]-a[1])[0];
-  const topWish=topWishEntry?(wishById(topWishEntry[0])||activeWish):activeWish;
-  const topWishCount=topWishEntry?topWishEntry[1]:0;
-  const topGoalEntry=Object.entries(goalCounts).sort((a,b)=>b[1]-a[1])[0];
-  const topGoal=topGoalEntry?goals.find(g=>String(g.id)===String(topGoalEntry[0])):activeGoal;
-  const from=new Date();from.setDate(from.getDate()-6);
-  const fromStr=`${from.getMonth()+1}/${from.getDate()}`;
-  const toStr=`${new Date().getMonth()+1}/${new Date().getDate()}`;
-  const bars=days.map(d=>{
-    const pct=maxActions>0?Math.round(d.actions/maxActions*100):0;
-    return `<div class="weekly-bar-row">
-      <div class="weekly-bar-day">${d.label}</div>
-      <div class="weekly-bar-track"><div class="weekly-bar-fill" style="width:${pct}%"></div></div>
-      <div class="weekly-bar-num">${d.actions}</div>
-    </div>`;
-  }).join('');
-  const wishRows=Object.entries(wishCounts).sort((a,b)=>b[1]-a[1]).slice(0,4).map(([wid,count])=>{
+  // Cumulative — scan all stored diary-day-* keys
+  let lifetimeDone=0;
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(!k||!k.startsWith('diary-day-'))continue;
+    try{const d=JSON.parse(localStorage.getItem(k)||'{}');(d.todos||[]).forEach(t=>{if(t.done)lifetimeDone++;});}catch(e){}
+  }
+  // Also count routine checks
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(!k||!k.startsWith('diary-routine-checks-'))continue;
+    try{const c=JSON.parse(localStorage.getItem(k)||'{}');Object.keys(c).forEach(rid=>{lifetimeDone+=Object.values(c[rid]||{}).filter(Boolean).length;});}catch(e){}
+  }
+  const maxStreak=calcMaxStreak();
+  const monthCount=calcMonthAchievements();
+
+  // Wish progress (kept, simplified)
+  const wishCounts={};
+  trend.forEach(t=>{
+    const day=loadDay(t.key);
+    (day.todos||[]).forEach(td=>{if(!td.done)return;const g=td.goalId?goals.find(x=>String(x.id)===String(td.goalId)):null;const wid=td.wishId||g?.wishId||G.activeWishId||'__none';wishCounts[wid]=(wishCounts[wid]||0)+1;});
+  });
+  const topWishCount=Math.max(0,...Object.values(wishCounts));
+  const wishRows=Object.entries(wishCounts).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([wid,count])=>{
     const wish=wishById(wid);
-    const name=wish?wish.text:'未設定の行動';
+    if(!wish)return '';
     const pct=topWishCount?Math.round(count/topWishCount*100):0;
     return `<div class="report-wish-row">
-      <div class="report-wish-name">${esc(name)}</div>
+      <div class="report-wish-name">${esc(wish.text)}</div>
       <div class="report-wish-count">${count}</div>
       <div class="report-wish-track"><div class="report-wish-fill" style="width:${pct}%"></div></div>
     </div>`;
   }).join('');
 
-  el.innerHTML= totalActions===0 ? `
-    <div class="report-focus-card">
-      <div class="report-kicker">${fromStr} — ${toStr}</div>
-      <div class="report-message">まだ今週の前進は記録されていません。</div>
-      <div class="report-sub">Wishを選び、Goalを決めて、今日のTodoかRoutineをひとつ完了するとここに積み上がります。</div>
-    </div>
-  ` : `
-    <div class="weekly-week-label">${fromStr} — ${toStr}</div>
-    <div class="report-focus-card">
-      <div class="report-kicker">Weekly Progress</div>
-      <div class="report-message">今週、あなたは${topWish?`「${esc(topWish.text)}」に`:''}${totalActions}回近づきました。</div>
-      <div class="report-sub">一番積み上がったGoal: ${topGoal?esc(topGoal.text):'未設定'}${totalRoutineDone?` · Routine ${totalRoutineDone}回`:''}</div>
-    </div>
-    <div class="weekly-grid">
-      <div class="weekly-stat">
-        <div class="weekly-stat-value">${totalActions}</div>
-        <div class="weekly-stat-label">前進した回数</div>
+  // Build the trend SVG chart
+  const tw=320,th=120,padX=14,padY=14;
+  const maxC=Math.max(1,...trend.map(t=>t.count));
+  const points=trend.map((t,i)=>{
+    const x=padX+(tw-2*padX)*(i/(trend.length-1));
+    const y=th-padY-(th-2*padY)*(t.count/maxC);
+    return {x,y,t};
+  });
+  const poly=points.map(p=>`${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const area=`${padX},${th-padY} ${poly} ${tw-padX},${th-padY}`;
+  const todayPt=points[points.length-1];
+  const dots=points.map((p,i)=>{
+    const r=i===points.length-1?3.6:1.8;
+    return `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="${r}" class="trend-dot${i===points.length-1?' today':''}"/>`;
+  }).join('');
+  // Date labels: first, +7 days, today
+  const firstDate=trend[0].date;
+  const midDate=trend[7].date;
+  const labels=`
+    <text x="${padX}" y="${th-2}" class="trend-axis">${firstDate.getMonth()+1}/${firstDate.getDate()}</text>
+    <text x="${tw/2}" y="${th-2}" class="trend-axis" text-anchor="middle">${midDate.getMonth()+1}/${midDate.getDate()}</text>
+    <text x="${tw-padX}" y="${th-2}" class="trend-axis" text-anchor="end">今日</text>
+  `;
+  const chartSvg=`<svg viewBox="0 0 ${tw} ${th}" preserveAspectRatio="none" class="trend-chart">
+    <polygon class="trend-area" points="${area}"/>
+    <polyline class="trend-line" points="${poly}"/>
+    ${dots}
+    ${labels}
+  </svg>`;
+
+  // Empty state
+  if(lifetimeDone===0&&dayTodoDone===0){
+    el.innerHTML=`<div class="report-focus-card">
+      <div class="report-kicker">REPORT</div>
+      <div class="report-message">まだ記録がありません。</div>
+      <div class="report-sub">今日のタスクを1つ完了すると、ここに数字が動き始めます。</div>
+    </div>`;
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="rpt-section-title">今日</div>
+    <div class="rpt-row-2">
+      <div class="rpt-card">
+        <div class="rpt-card-label">前日比</div>
+        <div class="rpt-card-num ${diffClass}">${diffSign}<span class="rpt-card-num-big">${Math.abs(diff)}</span><span class="rpt-card-unit">件</span></div>
       </div>
-      <div class="weekly-stat">
-        <div class="weekly-stat-value">${rate}<span style="font-size:14px">%</span></div>
-        <div class="weekly-stat-label">Todo達成率</div>
+      <div class="rpt-card">
+        <div class="rpt-card-label">今日の完了</div>
+        <div class="rpt-card-num"><span class="rpt-card-num-big">${dayTodoDone}</span><span class="rpt-card-unit">件</span></div>
       </div>
     </div>
-    <div class="weekly-bar-wrap">${bars}</div>
-    ${wishRows?`<div class="report-wish-list">${wishRows}</div>`:''}
-    <div class="report-note">小さな完了が、Wishへの距離を縮めています。</div>
+
+    <div class="rpt-section-title">完了数の推移 <span class="rpt-section-sub">直近14日</span></div>
+    <div class="rpt-card rpt-chart-card">
+      ${chartSvg}
+    </div>
+
+    <div class="rpt-section-title">ペース</div>
+    <div class="rpt-card">
+      <div class="rpt-pace-row"><div class="rpt-pace-label">1日あたり<span>（直近7日）</span></div><div class="rpt-pace-val"><span class="rpt-pace-num">${avg7.toFixed(1)}</span><span class="rpt-card-unit">件</span></div></div>
+      <div class="rpt-pace-divider"></div>
+      <div class="rpt-pace-projection">
+        <span class="rpt-pace-pj-label">このペースだと</span>
+        <span class="rpt-pace-pj-val">1ヶ月 <strong>${monthProj.toLocaleString()}</strong> 件</span>
+        <span class="rpt-pace-pj-sep">/</span>
+        <span class="rpt-pace-pj-val muted">1年 <strong>${yearProj.toLocaleString()}</strong> 件</span>
+      </div>
+    </div>
+
+    <div class="rpt-section-title">積み上げ</div>
+    <div class="rpt-row-3">
+      <div class="rpt-card mini"><div class="rpt-mini-num">${lifetimeDone.toLocaleString()}</div><div class="rpt-mini-lbl">累計完了</div></div>
+      <div class="rpt-card mini"><div class="rpt-mini-num">${maxStreak}</div><div class="rpt-mini-lbl">最長ストリーク</div></div>
+      <div class="rpt-card mini"><div class="rpt-mini-num">${monthCount}</div><div class="rpt-mini-lbl">今月の達成日</div></div>
+    </div>
+
+    ${wishRows?`
+    <div class="rpt-section-title">前進したWish</div>
+    <div class="report-wish-list">${wishRows}</div>
+    `:''}
   `;
 }
 
@@ -2376,11 +2487,46 @@ function renderBucket(){
     const el=document.createElement('div');
     el.className='task-item'+(b.done?' done':'');
     el.style.animationDelay=(i*0.05)+'s';
-    el.innerHTML=`<div class="bucket-row"><button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label">${esc(b.text)}</span></div><div class="bucket-actions"><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button></div>`;
+    el.innerHTML=`<div class="bucket-row"><button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label bucket-label" onclick="editBucket(${b.id},this)" title="タップして編集">${esc(b.text)}</span></div><div class="bucket-actions"><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button></div>`;
     list.appendChild(el);
   });
 }
 function addBucket(){const inp=document.getElementById('bucketInput'),text=inp.value.trim();if(!text)return;const id=Date.now();G.bucket.unshift({id,text,done:false});if(!G.activeWishId)G.activeWishId=id;inp.value='';saveGlobal();renderBucket();renderGoalSummary();playAdd();}
+
+/* Wish 編集 — タップで入力欄化。Enter/blur 保存、Esc キャンセル。 */
+function editBucket(id,labelEl){
+  const b=G.bucket.find(b=>b.id===id);
+  if(!b||b.done)return;
+  const original=b.text;
+  const ta=document.createElement('textarea');
+  ta.className='bucket-edit-input';
+  ta.value=original;
+  ta.rows=1;
+  labelEl.replaceWith(ta);
+  ta.focus();
+  ta.setSelectionRange(ta.value.length,ta.value.length);
+  // auto-grow
+  const grow=()=>{ta.style.height='auto';ta.style.height=(ta.scrollHeight)+'px';};
+  grow();ta.addEventListener('input',grow);
+  let committed=false;
+  const commit=()=>{
+    if(committed)return;committed=true;
+    const next=ta.value.trim();
+    if(next&&next!==original){
+      b.text=next;
+      saveGlobal();
+      renderBucket();renderGoalSummary();
+      showToast('編集しました ✓');
+    } else {
+      renderBucket();
+    }
+  };
+  ta.addEventListener('keydown',(e)=>{
+    if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();commit();}
+    else if(e.key==='Escape'){committed=true;renderBucket();}
+  });
+  ta.addEventListener('blur',commit);
+}
 function toggleBucket(id){const b=G.bucket.find(b=>b.id===id);if(b){b.done=!b.done;saveGlobal();renderBucket();renderGoalSummary();playCheck();}}
 
 /* C · Signature Wish → Today pull interaction
