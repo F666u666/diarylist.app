@@ -274,7 +274,13 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .task-label{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-weight:300;font-size:13px;letter-spacing:0.05em;text-align:center;color:rgba(26,20,16,0.82);transition:all 0.22s;cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 [data-theme="dark"] .task-label{color:rgba(240,235,226,0.90);}
 /* Wish 用にはタスク名フル表示 — Wishは "やる気の源" だから省略しない */
-#paneBucket .task-label{white-space:normal;text-overflow:clip;overflow:visible;text-align:left;line-height:1.55;padding:2px 4px;}
+#paneBucket .task-item{flex-direction:column;align-items:stretch;gap:8px;padding:16px 18px;}
+#paneBucket .bucket-row{display:flex;align-items:flex-start;gap:14px;}
+#paneBucket .task-label{flex:1;white-space:normal;text-overflow:clip;overflow:visible;text-align:left;line-height:1.6;font-size:14px;padding:0;color:rgba(26,20,16,0.88);font-weight:400;}
+[data-theme="dark"] #paneBucket .task-label{color:rgba(240,235,226,0.92);}
+#paneBucket .bucket-actions{display:flex;justify-content:flex-end;align-items:center;gap:6px;padding-top:8px;border-top:1px solid rgba(26,20,16,0.06);margin-top:2px;}
+[data-theme="dark"] #paneBucket .bucket-actions{border-top-color:rgba(255,255,255,0.08);}
+#paneBucket .bucket-check{margin-top:2px;}
 .task-item.done{background:rgba(255,255,255,0.22);border-color:rgba(26,20,16,0.05);box-shadow:none;}
 [data-theme="dark"] .task-item.done{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);box-shadow:none;}
 .task-item.done .task-label{text-decoration:line-through;text-decoration-color:rgba(26,20,16,0.22);text-decoration-thickness:1px;color:rgba(26,20,16,0.34);}
@@ -2370,7 +2376,7 @@ function renderBucket(){
     const el=document.createElement('div');
     el.className='task-item'+(b.done?' done':'');
     el.style.animationDelay=(i*0.05)+'s';
-    el.innerHTML=`<button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label">${esc(b.text)}</span><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button>`;
+    el.innerHTML=`<div class="bucket-row"><button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label">${esc(b.text)}</span></div><div class="bucket-actions"><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button></div>`;
     list.appendChild(el);
   });
 }
