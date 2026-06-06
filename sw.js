@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260604-text-tint';
+const CACHE = 'dl-20260604-routine-edit-link';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
