@@ -1835,7 +1835,19 @@ function showRoutineForm(){
 let _editingRoutineIdx=-1;
 function saveRoutine(){
   const name=document.getElementById('routineNameInput').value.trim();
-  const tasks=document.getElementById('routineTasksInput').value.split('\n').map(t=>t.trim()).filter(Boolean);
+  // Parse lines; if a line is JUST a URL, attach it to the previous task
+  // instead of creating an empty "URL-only" task. Lets users paste a link
+  // on the next line for readability.
+  const rawLines=document.getElementById('routineTasksInput').value.split('\n').map(t=>t.trim()).filter(Boolean);
+  const urlOnly=/^https?:\/\/\S+$/;
+  const tasks=[];
+  rawLines.forEach(line=>{
+    if(urlOnly.test(line)&&tasks.length){
+      tasks[tasks.length-1]=tasks[tasks.length-1]+' '+line;
+    } else {
+      tasks.push(line);
+    }
+  });
   if(!name||!tasks.length)return;
   if(!G.routines)G.routines=[];
   if(_editingRoutineIdx>=0){
