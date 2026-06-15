@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260616-goal-2tier';
+const CACHE = 'dl-20260616-todo-wrap';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
