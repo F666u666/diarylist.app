@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260616-footer-copy';
+const CACHE = 'dl-20260616-wish-why-warm';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
