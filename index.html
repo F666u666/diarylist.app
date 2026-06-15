@@ -759,7 +759,11 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .goal-add-btn:active{transform:scale(0.93);}
 .goal-empty{text-align:center;padding:32px 0;font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(26,20,16,0.32);line-height:2;}
 [data-theme="dark"] .goal-empty{color:rgba(240,235,226,0.28);}
-.footer-label{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.14em;color:rgba(26,20,16,0.30);display:block;margin-bottom:4px;}
+.footer-cta{font-family:'Noto Serif JP',serif;font-size:13px;font-weight:400;letter-spacing:0.06em;color:rgba(26,20,16,0.58);line-height:1.7;}
+[data-theme="dark"] .footer-cta{color:rgba(240,235,226,0.62);}
+.footer-cta-sub{font-family:'Noto Serif JP',serif;font-size:11px;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.36);margin:4px 0 14px;line-height:1.6;}
+[data-theme="dark"] .footer-cta-sub{color:rgba(240,235,226,0.38);}
+.footer-label{font-family:'Noto Serif JP',serif;font-size:10px;letter-spacing:0.14em;color:rgba(26,20,16,0.30);display:block;margin-top:14px;}
 .footer-label-jp{letter-spacing:0.05em;margin-left:2px;}
 [data-theme="dark"] .footer-label{color:rgba(240,235,226,0.30);}
 .footer-link{font-family:'Noto Sans JP',sans-serif;font-size:13px;letter-spacing:0.06em;color:rgba(26,20,16,0.60);text-decoration:none;transition:color 0.2s;border-bottom:0.5px solid rgba(26,20,16,0.20);padding-bottom:1px;}
@@ -1163,7 +1167,8 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 </div>
 
 <div class="app-footer">
-  <span class="footer-label">created by <span class="footer-label-jp">ひとり会議</span></span>
+  <div class="footer-cta">うまくいかない日は、ひとりで抱えない。</div>
+  <div class="footer-cta-sub">毎日ここで、目標との向き合い方を発信してる ↓</div>
   <div class="footer-socials">
     <a href="https://www.instagram.com/think_log66" target="_blank" rel="noopener" class="footer-social-btn" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="13" height="13"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/></svg>
@@ -1178,6 +1183,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       <span>note</span>
     </a>
   </div>
+  <span class="footer-label">created by <span class="footer-label-jp">ひとり会議</span></span>
 </div>
 
 <div class="swipe-hint" id="swipeHint">← スワイプで過去を見る</div>
