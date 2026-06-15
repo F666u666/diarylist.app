@@ -813,6 +813,9 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .lineage-note{display:flex;align-items:center;gap:6px;font-family:'Noto Serif JP',serif;font-size:11px;font-weight:300;color:rgba(26,20,16,0.45);padding:4px 0 0;letter-spacing:0.02em;}
 [data-theme="dark"] .lineage-note{color:rgba(240,235,226,0.45);}
 .lineage-note svg{width:13px;height:13px;color:var(--accent);flex-shrink:0;}
+.lineage-note span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+/* タスク名の前の極小ドット — 目標から引いたタスクの印（場所を取らない） */
+.task-src-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0.55;margin-right:7px;vertical-align:2px;flex-shrink:0;}
 .bucket-focus-btn,.goal-main-btn{font-family:'Noto Serif JP',serif;font-size:9px;font-weight:300;letter-spacing:0.08em;color:rgba(26,20,16,0.34);padding:3px 7px;border-radius:999px;border:1px solid rgba(26,20,16,0.08);white-space:nowrap;transition:all .18s;}
 [data-theme="dark"] .bucket-focus-btn,[data-theme="dark"] .goal-main-btn{color:rgba(240,235,226,0.38);border-color:rgba(255,255,255,0.12);}
 .bucket-focus-btn.active,.goal-main-btn.active{color:#fff;background:var(--accent);border-color:var(--accent);box-shadow:0 3px 10px hsl(var(--ah),var(--as),var(--al),0.22);}
@@ -2312,14 +2315,18 @@ function renderTodos(){
     const carry=t.carried?'<span class="carried-mark">↑</span>':'';
     const memoDot=t.memo?'<span class="memo-dot"></span>':'';
     const goal=goalById(t.goalId);
-    const goalMark=goal?`<span class="goal-mini-badge">${esc(goal.text)}</span>`:'';
-    // Lineage source — surface inside the expanded memo area only.
+    // 系譜（Goal / Wish 由来）は行を圧迫しないよう、メモ展開エリアにだけ出す。
     const linkedWish=t.wishId?(G.bucket||[]).find(b=>String(b.id)===String(t.wishId)):null;
-    const lineageNote=linkedWish?`<div class="lineage-note">${SVG_LINEAGE_MINI}<span>${esc(linkedWish.text)}</span></div>`:'';
+    const goalNote=goal?`<div class="lineage-note goal-src"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="13" height="13"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg><span>${esc(goal.text)}</span></div>`:'';
+    const wishNote=linkedWish?`<div class="lineage-note">${SVG_LINEAGE_MINI}<span>${esc(linkedWish.text)}</span></div>`:'';
+    const lineageNote=goalNote+wishNote;
+    const hasLineage=!!(goal||linkedWish);
+    // Goal由来の印として、タスク名の前に極小ドットだけ置く（場所を取らない）
+    const srcDot=hasLineage?'<span class="task-src-dot" title="目標から引いたタスク"></span>':'';
     if(isPast()){
-      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${escLink(t.text)}${carry}</span>${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${(t.memo||linkedWish)?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo||'')}</div>${lineageNote}</div>`:''}`;
+      el.innerHTML=`<div class="task-main-row"><div class="check-btn" style="pointer-events:none">${t.done?'✓':''}</div><span class="task-label">${srcDot}${escLink(t.text)}${carry}</span><span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span></div>${(t.memo||hasLineage)?`<div class="memo-row open"><div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(26,20,16,0.45);padding:4px 0;">${esc(t.memo||'')}</div>${lineageNote}</div>`:''}`;
     } else {
-      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${escLink(t.text)}${carry}</span>${memoDot}${goalMark}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea>${lineageNote}</div>`;
+      el.innerHTML=`<div class="task-main-row"><button class="check-btn" onclick="toggleTodo(${t.id})">${t.done?'✓':''}</button><span class="task-label" onclick="toggleMemo(${t.id},this)">${srcDot}${escLink(t.text)}${carry}</span>${memoDot}<span class="cat-badge" title="${esc(t.cat)}">${esc(abbrevCat(t.cat))}</span><button class="del-btn" onclick="delTodo(${t.id})">✕</button></div><div class="memo-row${t.memo||t._memoOpen?' open':''}" id="memo-${t.id}"><textarea class="memo-input" placeholder="メモを追加…" oninput="saveMemo(${t.id},this.value);autoResize(this)">${esc(t.memo||'')}</textarea>${lineageNote}</div>`;
     }
     list.appendChild(el);
   });

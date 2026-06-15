@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260604-onboard-tour';
+const CACHE = 'dl-20260604-task-name-first';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));
