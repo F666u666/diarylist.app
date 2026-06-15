@@ -446,8 +446,35 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .ob-next:active{transform:scale(0.97);}
 .ob-welcome-title{font-family:'Playfair Display SC',serif;font-size:min(9vw,48px);letter-spacing:0.18em;color:rgba(26,20,16,0.75);margin-bottom:16px;}
 [data-theme="dark"] .ob-welcome-title{color:rgba(240,235,226,0.75);}
-.ob-welcome-sub{font-family:'Noto Serif JP',serif;font-size:13px;font-weight:300;letter-spacing:0.12em;color:rgba(26,20,16,0.38);margin-bottom:64px;line-height:1.8;}
+.ob-welcome-sub{font-family:'Noto Serif JP',serif;font-size:13px;font-weight:300;letter-spacing:0.12em;color:rgba(26,20,16,0.38);margin-bottom:48px;line-height:1.8;}
 [data-theme="dark"] .ob-welcome-sub{color:rgba(240,235,226,0.38);}
+/* ── 5-step practice tour ── */
+.ob-brand-mark{width:46px;height:46px;color:var(--accent);margin-bottom:18px;opacity:0.9;}
+.ob-brand-mark svg{width:100%;height:100%;}
+.ob-skip{margin-top:18px;font-family:'Noto Serif JP',serif;font-size:11px;font-weight:300;letter-spacing:0.08em;color:rgba(26,20,16,0.32);background:none;border:none;cursor:pointer;padding:6px 12px;}
+[data-theme="dark"] .ob-skip{color:rgba(240,235,226,0.32);}
+.ob-skip:hover{color:rgba(26,20,16,0.55);}
+.ob-step-label{font-family:'Geist Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.14em;color:var(--accent);margin-bottom:18px;text-transform:uppercase;}
+.ob-step-title{font-family:'Playfair Display',serif;font-style:italic;font-weight:400;font-size:clamp(24px,6.5vw,32px);letter-spacing:-0.005em;color:rgba(26,20,16,0.82);margin-bottom:14px;line-height:1.25;text-align:center;}
+[data-theme="dark"] .ob-step-title{color:rgba(240,235,226,0.85);}
+.ob-step-sub{font-family:'Noto Serif JP',serif;font-size:13px;font-weight:300;letter-spacing:0.04em;color:rgba(26,20,16,0.45);line-height:1.85;margin-bottom:34px;text-align:center;}
+[data-theme="dark"] .ob-step-sub{color:rgba(240,235,226,0.45);}
+.ob-input{width:100%;max-width:320px;font-family:'Noto Serif JP',serif;font-size:16px;font-weight:300;color:#1a1410;background:rgba(255,255,255,0.7);border:1px solid rgba(26,20,16,0.12);border-radius:14px;padding:14px 18px;outline:none;text-align:center;letter-spacing:0.03em;margin-bottom:34px;transition:border-color 0.2s,box-shadow 0.2s;}
+.ob-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px hsl(var(--ah),var(--as),var(--al),0.14);}
+[data-theme="dark"] .ob-input{background:rgba(255,255,255,0.08);color:#f0ebe2;border-color:rgba(255,255,255,0.16);}
+.ob-input::placeholder{color:rgba(26,20,16,0.26);}
+[data-theme="dark"] .ob-input::placeholder{color:rgba(240,235,226,0.26);}
+.ob-why-field{width:100%;max-width:320px;display:flex;flex-direction:column;gap:5px;margin-bottom:18px;text-align:left;}
+.ob-why-field label{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:500;letter-spacing:0.06em;padding-left:2px;}
+.ob-why-field.good label{color:hsl(168,38%,40%);}
+.ob-why-field.bad label{color:hsl(8,55%,54%);}
+[data-theme="dark"] .ob-why-field.good label{color:hsl(168,35%,62%);}
+[data-theme="dark"] .ob-why-field.bad label{color:hsl(8,55%,68%);}
+.ob-why-field textarea{font-family:'Noto Serif JP',serif;font-size:14px;font-weight:300;line-height:1.6;color:rgba(26,20,16,0.80);background:rgba(255,255,255,0.7);border:1px solid rgba(26,20,16,0.10);border-radius:12px;padding:11px 14px;outline:none;resize:none;transition:border-color 0.2s;}
+.ob-why-field.good textarea:focus{border-color:hsl(168,38%,48%);}
+.ob-why-field.bad textarea:focus{border-color:hsl(8,55%,58%);}
+[data-theme="dark"] .ob-why-field textarea{background:rgba(255,255,255,0.08);color:rgba(240,235,226,0.82);border-color:rgba(255,255,255,0.14);}
+.ob-why-field:last-of-type{margin-bottom:34px;}
 .ob-commit-text{font-family:'Noto Serif JP',serif;font-size:15px;font-weight:300;letter-spacing:0.08em;color:rgba(26,20,16,0.60);line-height:1.9;margin-bottom:16px;max-width:280px;}
 [data-theme="dark"] .ob-commit-text{color:rgba(240,235,226,0.60);}
 .ob-commit-sub{font-family:'Noto Serif JP',serif;font-size:11px;font-weight:300;letter-spacing:0.12em;color:rgba(26,20,16,0.28);margin-bottom:48px;}
@@ -1159,109 +1186,59 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 
 <div class="onboarding" id="onboarding">
 
-  <!-- Screen 1: Welcome -->
+  <!-- 0: Welcome -->
   <div class="ob-screen active" id="ob-0">
+    <div class="ob-brand-mark" id="obBrandMark"></div>
     <div class="ob-logo">Diary List</div>
-    <div class="ob-welcome-title">Welcome</div>
-    <div class="ob-welcome-sub">毎日を、丁寧に記録する。<br>あなただけの手帳アプリです。</div>
-    <button class="ob-next ready" onclick="obNext()">はじめる</button>
+    <div class="ob-welcome-title">はじめよう</div>
+    <div class="ob-welcome-sub">読んで終わりにしない。<br>いまここで、最初のひとつを置く。</div>
+    <button class="ob-next ready" onclick="obTourNext()">4ステップで始める</button>
+    <button class="ob-skip" onclick="obSkip()">あとで自分でやる</button>
   </div>
 
-  <!-- Screen 2: Insight 1 — cognitive load -->
+  <!-- 1: STEP1 願望 -->
   <div class="ob-screen" id="ob-1">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-insight-wrap">
-      <div class="ob-insight-num">01</div>
-      <div class="ob-insight-stat">43%<span>集中力アップ</span></div>
-      <div class="ob-insight-headline">頭の中に抱えるだけで、<br>脳の43%が消耗していた。</div>
-      <div class="ob-insight-body">未完了タスクを頭で管理しようとすると、脳はバックグラウンドでそれを処理し続けます。<br><br><strong>書き出すだけで認知負荷が下がり</strong>、集中力と判断力が回復することが確認されています。</div>
-    </div>
-    <button class="ob-next ready" onclick="obNext()">次へ</button>
+    <div class="ob-step-label">STEP 1 / 4 · WISH</div>
+    <div class="ob-step-title">叶えたいことを、ひとつ</div>
+    <div class="ob-step-sub">5年後のあなたが、こうなっていてほしい。<br>完璧じゃなくていい。</div>
+    <input class="ob-input" id="obWishInput" placeholder="例：好きなことで生きている" maxlength="60" autocomplete="off">
+    <button class="ob-next ready" onclick="obTourNext()">次へ</button>
   </div>
 
-  <!-- Screen 3: Insight 2 — habit formation -->
+  <!-- 2: STEP2 2方向 -->
   <div class="ob-screen" id="ob-2">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-insight-wrap">
-      <div class="ob-insight-num">02</div>
-      <div class="ob-insight-stat">66<span>日で習慣になる</span></div>
-      <div class="ob-insight-headline">続かないのは、<br>意志が弱いせいじゃない。</div>
-      <div class="ob-insight-body">ロンドン大学の研究で、習慣が自動化されるまでに平均<strong>66日</strong>かかることが判明。<br><br>鍵は意志力ではなく「<strong>記録して可視化すること</strong>」。見える化が脳に継続を選ばせます。</div>
-    </div>
-    <button class="ob-next ready" onclick="obNext()">次へ</button>
+    <div class="ob-step-label">STEP 2 / 4 · WHY</div>
+    <div class="ob-step-title">なぜ、それを叶えたい？</div>
+    <div class="ob-step-sub">嬉しい未来と、ならないとやばい未来。<br>その両方が、あなたを動かす。</div>
+    <div class="ob-why-field good"><label>なったら嬉しい</label><textarea id="obWhyGood" placeholder="叶うと何がいい？" rows="2"></textarea></div>
+    <div class="ob-why-field bad"><label>ならないとやばい</label><textarea id="obWhyBad" placeholder="叶わないと何が起きる？" rows="2"></textarea></div>
+    <button class="ob-next ready" onclick="obTourNext()">次へ</button>
   </div>
 
-  <!-- Screen 4: Insight 3 — dopamine / completion -->
+  <!-- 3: STEP3 目標 -->
   <div class="ob-screen" id="ob-3">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-insight-wrap">
-      <div class="ob-insight-num">03</div>
-      <div class="ob-insight-stat">×3<span>倍のやる気が生まれる</span></div>
-      <div class="ob-insight-headline">チェックを入れるたびに、<br>脳が報酬を受け取っている。</div>
-      <div class="ob-insight-body">完了チェックは<strong>ドーパミン分泌</strong>を促すと神経科学で証明されています。<br><br>この小さな達成感の積み重ねが、次の行動への意欲を3倍にし、自己肯定感を高めていきます。</div>
-    </div>
-    <button class="ob-next ready" onclick="obNext()">さっそく試す</button>
+    <div class="ob-step-label">STEP 3 / 4 · GOAL</div>
+    <div class="ob-step-title">半年〜1年の、目標に割る</div>
+    <div class="ob-step-sub">遠い願いを、届く距離に。<br>いつまでに・何を・どれだけ。</div>
+    <input class="ob-input" id="obGoalInput" placeholder="例：1年でSNSをフォロワー1万人" maxlength="60" autocomplete="off">
+    <button class="ob-next ready" onclick="obTourNext()">次へ</button>
   </div>
 
-  <!-- Screen 5: Q1 -->
+  <!-- 4: STEP4 今日の一歩 -->
   <div class="ob-screen" id="ob-4">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-progress" id="ob-progress4"></div>
-    <div class="ob-question">今、一番管理できていないことは？</div>
-    <div class="ob-options grid">
-      <div class="ob-option" onclick="obSelect(this,'q1')">仕事・勉強</div>
-      <div class="ob-option" onclick="obSelect(this,'q1')">家事・生活</div>
-      <div class="ob-option" onclick="obSelect(this,'q1')">健康・運動</div>
-      <div class="ob-option" onclick="obSelect(this,'q1')">プライベート・趣味</div>
-    </div>
-    <button class="ob-next" id="ob-next-4" onclick="obNext()">次へ</button>
+    <div class="ob-step-label">STEP 4 / 4 · TODAY</div>
+    <div class="ob-step-title">今日の、一歩</div>
+    <div class="ob-step-sub">目標に1ミリ近づく、今日できること。<br>小さくていい。</div>
+    <input class="ob-input" id="obTodayInput" placeholder="例：投稿を1本つくる" maxlength="60" autocomplete="off">
+    <button class="ob-next ready" onclick="obTourNext()">これではじめる</button>
   </div>
 
-  <!-- Screen 6: Q2 -->
+  <!-- 5: 完成 -->
   <div class="ob-screen" id="ob-5">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-progress" id="ob-progress5"></div>
-    <div class="ob-question">毎日やりたいのに続かないことがある？</div>
-    <div class="ob-options">
-      <div class="ob-option" onclick="obSelect(this,'q2')">はい、よくある</div>
-      <div class="ob-option" onclick="obSelect(this,'q2')">たまにある</div>
-      <div class="ob-option" onclick="obSelect(this,'q2')">あまりない</div>
-    </div>
-    <button class="ob-next" id="ob-next-5" onclick="obNext()">次へ</button>
-  </div>
-
-  <!-- Screen 7: Q3 -->
-  <div class="ob-screen" id="ob-6">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-progress" id="ob-progress6"></div>
-    <div class="ob-question">このアプリをどう使いたい？</div>
-    <div class="ob-options grid">
-      <div class="ob-option" onclick="obSelect(this,'q3')">タスク管理をしたい</div>
-      <div class="ob-option" onclick="obSelect(this,'q3')">習慣を身につけたい</div>
-      <div class="ob-option" onclick="obSelect(this,'q3')">両方やりたい</div>
-    </div>
-    <button class="ob-next" id="ob-next-6" onclick="obNext()">次へ</button>
-  </div>
-
-  <!-- Screen 8: Q4 -->
-  <div class="ob-screen" id="ob-7">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-progress" id="ob-progress7"></div>
-    <div class="ob-question">1日のうち、いつ使いたい？</div>
-    <div class="ob-options">
-      <div class="ob-option" onclick="obSelect(this,'q4')">朝（1日の計画を立てる）</div>
-      <div class="ob-option" onclick="obSelect(this,'q4')">夜（1日を振り返る）</div>
-      <div class="ob-option" onclick="obSelect(this,'q4')">隙間時間にさっと</div>
-    </div>
-    <button class="ob-next" id="ob-next-7" onclick="obNext()">次へ</button>
-  </div>
-
-  <!-- Screen 9: Commit -->
-  <div class="ob-screen" id="ob-8">
-    <div class="ob-logo">Diary List</div>
-    <div class="ob-commit-text" id="ob-commit-msg">あなたのプロフィールをもとに<br>準備ができました。</div>
-    <div class="ob-commit-sub" id="ob-commit-sub">今日から記録を始めましょう</div>
-    <button class="ob-next ready" onclick="closeOnboarding()">Diary Listをはじめる</button>
+    <div class="ob-brand-mark" id="obBrandMark2"></div>
+    <div class="ob-commit-text">もう、動き始めている。</div>
+    <div class="ob-commit-sub">あとは毎日、ここを開くだけ。</div>
+    <button class="ob-next ready" onclick="obFinish()">Diary List をはじめる</button>
   </div>
 
 </div>
@@ -2955,78 +2932,76 @@ setInterval(function(){
   if(typeof applyAccent === 'function') applyAccent(_savedHex);
 })();
 
-// onboarding
-let _obStep=0;
-const _obAnswers={};
-const OB_TOTAL=4; // Q画面だけカウント
+// ── Onboarding: 5-step practice tour (note 読者向け) ──
+// 願望→2方向→目標→今日の一歩を実際に入力させ、終わった瞬間に
+// Wish / Goal / Today が埋まっている状態にする。
+let _obTourStep=0;
+const OB_TOUR_TOTAL=6; // ob-0 .. ob-5
 
-function obRenderProgress(screenId){
-  // progress dots only show on Q screens (4〜7)
-  const progressId='ob-progress'+screenId;
-  const el=document.getElementById(progressId);
-  if(!el)return;
-  el.innerHTML='';
-  const qIndex=screenId-4; // 0〜3
-  for(let i=0;i<OB_TOTAL;i++){
-    const d=document.createElement('div');
-    d.className='ob-dot'+(i<=qIndex?' active':'');
-    el.appendChild(d);
-  }
-}
-
-function obSelect(el,q){
-  el.closest('.ob-options').querySelectorAll('.ob-option').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected');
-  _obAnswers[q]=el.textContent.trim();
-  const stepIdx=parseInt(el.closest('.ob-screen').id.replace('ob-',''),10);
-  if(!isNaN(stepIdx)){const btn=document.getElementById('ob-next-'+stepIdx);if(btn)btn.classList.add('ready');}
-  // cute select sound
+function obTourNext(){
+  const current=document.getElementById('ob-'+_obTourStep);
+  _obTourStep++;
+  if(_obTourStep>=OB_TOUR_TOTAL){obFinish();return;}
+  const next=document.getElementById('ob-'+_obTourStep);
+  if(!next){obFinish();return;}
   _playObSelect();
-}
-
-function obNext(){
-  const current=document.getElementById('ob-'+_obStep);
-  const next=document.getElementById('ob-'+(_obStep+1));
-  if(!next){closeOnboarding();return;}
-  // build commit message when going to last screen (ob-8)
-  if(_obStep+1===8){
-    const catMap={'仕事・勉強':'仕事をもっと整理したい','家事・生活':'毎日の生活をもっと丁寧に','健康・運動':'健康的な習慣を身につけたい','プライベート・趣味':'自分の時間をもっと大切に'};
-    const timeMap={'朝（1日の計画を立てる）':'毎朝5分、今日の計画を立てるところから始めましょう。','夜（1日を振り返る）':'毎晩5分、今日を振り返るところから始めましょう。','隙間時間にさっと':'気づいた時にさっと記録する習慣から始めましょう。'};
-    const q1=_obAnswers.q1||'';
-    const q4=_obAnswers.q4||'';
-    const title=catMap[q1]||'あなただけの毎日を、記録しよう。';
-    const sub=timeMap[q4]||'今日から記録を始めましょう。';
-    const msg=document.getElementById('ob-commit-msg');
-    const subEl=document.getElementById('ob-commit-sub');
-    if(msg)msg.innerHTML=title;
-    if(subEl)subEl.textContent=sub;
-  }
-  current.style.opacity='0';current.style.transition='opacity 0.25s';
+  if(current){current.style.opacity='0';current.style.transition='opacity 0.25s';}
   setTimeout(()=>{
-    current.classList.remove('active');
-    current.style.opacity='';current.style.transition='';
-    _obStep++;
+    if(current){current.classList.remove('active');current.style.opacity='';current.style.transition='';}
     next.classList.add('active');
-    obRenderProgress(_obStep);
+    setTimeout(()=>{const inp=next.querySelector('input,textarea');if(inp)inp.focus();},220);
   },250);
 }
+function obSkip(){obFinish();}
 
-function closeOnboarding(){
-  if(_obAnswers.q1){
-    const map={'仕事・勉強':'仕事','家事・生活':'家事','健康・運動':'健康','プライベート・趣味':'プライベート'};
-    const cat=map[_obAnswers.q1];
-    if(cat&&!G.cats.includes(cat))G.cats.unshift(cat);
-    G.activeCat=map[_obAnswers.q1]||G.activeCat;
-    saveGlobal();renderCats();renderTodos();
+function obFinish(){
+  // 入力を収集
+  const wishText=(document.getElementById('obWishInput')?.value||'').trim();
+  const whyGood=(document.getElementById('obWhyGood')?.value||'').trim();
+  const whyBad=(document.getElementById('obWhyBad')?.value||'').trim();
+  const goalText=(document.getElementById('obGoalInput')?.value||'').trim();
+  const todayText=(document.getElementById('obTodayInput')?.value||'').trim();
+  const baseTs=Date.now();
+  let wishId=null;
+  if(wishText){
+    wishId=baseTs;
+    if(!G.bucket)G.bucket=[];
+    G.bucket.unshift({id:wishId,text:wishText,done:false,serious:true,whyGood,whyBad});
+    G.activeWishId=wishId;
+  }
+  let goalId=null;
+  if(goalText){
+    const goals=loadGoals();
+    goalId=baseTs+1;
+    goals.push({id:goalId,text:goalText,wishId:wishId,done:false});
+    saveGoals(goals);
+    G.activeGoalId=goalId;
+  }
+  saveGlobal();
+  if(todayText){
+    const k=toKey(new Date());
+    const day=loadDay(k);
+    if(!day.todos)day.todos=[];
+    day.todos.unshift({id:baseTs+2,text:todayText,cat:(G.cats&&G.cats[0])||'プライベート',done:false,memo:'',wishId,goalId});
+    saveDay(k,day);
   }
   localStorage.setItem('diary-onboarded-v1','1');
   const el=document.getElementById('onboarding');
   el.style.opacity='0';
-  setTimeout(()=>{ el.classList.remove('active'); el.style.opacity=''; },500);
+  setTimeout(()=>{
+    el.classList.remove('active');el.style.opacity='';
+    try{if(typeof D!=='undefined')D=loadDay(viewDate);}catch(e){}
+    try{renderTodos();renderBucket();renderGoals();renderGoalSummary();renderStreak();renderRoutineBar();}catch(e){}
+  },500);
 }
 
 if(!localStorage.getItem('diary-onboarded-v1')){
   document.getElementById('onboarding').classList.add('active');
+  // ブランドマーク注入
+  try{
+    const m1=document.getElementById('obBrandMark');if(m1)m1.innerHTML=SVG_BRAND_MARK;
+    const m2=document.getElementById('obBrandMark2');if(m2)m2.innerHTML=SVG_BRAND_MARK;
+  }catch(e){}
 }
 
 
