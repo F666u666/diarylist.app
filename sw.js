@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260604-url-merge';
+const CACHE = 'dl-20260604-serious-why';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

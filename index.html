@@ -303,6 +303,26 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 #paneBucket .bucket-label:hover{border-bottom-color:rgba(26,20,16,0.20);}
 [data-theme="dark"] #paneBucket .bucket-label:hover{border-bottom-color:rgba(240,235,226,0.22);}
 .bucket-edit-input{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:14px;font-weight:400;line-height:1.6;color:rgba(26,20,16,0.88);background:rgba(255,255,255,0.55);border:1px solid var(--accent);border-radius:8px;padding:6px 10px;outline:none;resize:none;overflow:hidden;box-shadow:0 0 0 3px hsl(var(--ah),var(--as),var(--al),0.12);}
+/* 本気の願望（serious）— note の「3つに絞る」 */
+.bucket-serious-hint{text-align:center;font-family:'Geist Mono','Noto Sans JP',sans-serif;font-size:10px;letter-spacing:0.04em;color:hsl(348,30%,50%);margin:0 0 12px;font-variant-numeric:tabular-nums;}
+[data-theme="dark"] .bucket-serious-hint{color:hsl(348,32%,68%);}
+#paneBucket .task-item.wish-serious{background:hsl(348,40%,97%);border-color:hsl(348,35%,82%);box-shadow:0 1px 0 rgba(255,255,255,0.9) inset,0 4px 16px hsl(348,40%,60%,0.12);}
+[data-theme="dark"] #paneBucket .task-item.wish-serious{background:hsl(348,20%,16%);border-color:hsl(348,25%,38%);}
+.wish-serious-badge{display:inline-flex;align-items:center;gap:3px;font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.04em;color:#fff;background:hsl(348,42%,56%);padding:2px 7px;border-radius:999px;margin-left:8px;vertical-align:2px;white-space:nowrap;}
+.wish-serious-badge svg{flex-shrink:0;}
+.wish-why-area{display:flex;flex-direction:column;gap:8px;padding:4px 2px 2px;animation:fadeUp 0.28s ease both;}
+.wish-why-field{display:flex;flex-direction:column;gap:3px;}
+.wish-why-field label{font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.06em;padding-left:2px;}
+.wish-why-field.good label{color:hsl(168,38%,38%);}
+.wish-why-field.bad label{color:hsl(8,55%,52%);}
+[data-theme="dark"] .wish-why-field.good label{color:hsl(168,35%,62%);}
+[data-theme="dark"] .wish-why-field.bad label{color:hsl(8,55%,68%);}
+.wish-why-input{font-family:'Noto Serif JP',serif;font-size:12.5px;font-weight:300;line-height:1.6;color:rgba(26,20,16,0.78);background:rgba(255,255,255,0.55);border:1px solid rgba(26,20,16,0.08);border-radius:9px;padding:7px 11px;outline:none;resize:none;overflow:hidden;min-height:34px;transition:border-color 0.2s;}
+.wish-why-field.good .wish-why-input:focus{border-color:hsl(168,38%,48%);}
+.wish-why-field.bad .wish-why-input:focus{border-color:hsl(8,55%,58%);}
+[data-theme="dark"] .wish-why-input{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.10);color:rgba(240,235,226,0.80);}
+.wish-why-input::placeholder{color:rgba(26,20,16,0.28);}
+[data-theme="dark"] .wish-why-input::placeholder{color:rgba(240,235,226,0.28);}
 [data-theme="dark"] .bucket-edit-input{color:rgba(240,235,226,0.92);background:rgba(255,255,255,0.06);}
 .task-item.done{background:rgba(255,255,255,0.22);border-color:rgba(26,20,16,0.05);box-shadow:none;}
 [data-theme="dark"] .task-item.done{background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);box-shadow:none;}
@@ -970,6 +990,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       <input type="text" id="bucketInput" placeholder="5年後の自分が叶えていてほしいこと…"/>
       <button class="add-btn" onclick="addBucket()">+</button>
     </div>
+    <div class="bucket-serious-hint" id="bucketSeriousHint" style="display:none;"></div>
     <div class="task-list" id="bucketList"></div>
   </div>
 
@@ -2548,18 +2569,47 @@ function renderBucket(){
     else hint.textContent=`${total}個のやりたいこと ✦`;
   }
 
+  // 本気カウント表示
+  const seriousCount=G.bucket.filter(b=>b.serious).length;
+  const sHint=document.getElementById('bucketSeriousHint');
+  if(sHint){
+    sHint.textContent=seriousCount>0?`本気の願望 ${seriousCount} / 3`:'';
+    sHint.style.display=seriousCount>0?'':'none';
+  }
+
   if(!total){
     list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>5年後の自分を書いてみよう<span class="empty-msg-sub">そこから Goal と今日がつながる</span></p>`;
     return;
   }
 
-  G.bucket.forEach((b,i)=>{
+  // 本気(serious)を上に。各グループ内は元の順序を維持。
+  const serious=G.bucket.filter(b=>b.serious);
+  const rest=G.bucket.filter(b=>!b.serious);
+  const ordered=[...serious,...rest];
+
+  ordered.forEach((b,i)=>{
     const el=document.createElement('div');
-    el.className='task-item'+(b.done?' done':'');
+    const isSerious=!!b.serious;
+    el.className='task-item'+(b.done?' done':'')+(isSerious?' wish-serious':'');
     el.style.animationDelay=(i*0.05)+'s';
-    el.innerHTML=`<div class="bucket-row"><button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label bucket-label" onclick="editBucket(${b.id},this)" title="タップして編集">${esc(b.text)}</span></div><div class="bucket-actions"><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${String(G.activeWishId)===String(b.id)?' active':''}" onclick="setActiveWish(${b.id})">${String(G.activeWishId)===String(b.id)?'Focus':'選ぶ'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button></div>`;
+    const seriousMark=isSerious?'<span class="wish-serious-badge"><svg viewBox="0 0 24 24" fill="currentColor" width="10" height="10"><path d="M12 2l2.6 6.3L21 9l-5 4.4L17.6 21 12 17.3 6.4 21 8 13.4 3 9l6.4-.7z"/></svg> 本気</span>':'';
+    // 本気の願望だけ「なったら嬉しい / ならないとやばい」を掘る欄を出す
+    const whyArea=isSerious?`
+      <div class="wish-why-area">
+        <div class="wish-why-field good">
+          <label>なったら嬉しい</label>
+          <textarea class="wish-why-input" placeholder="叶うと何がいい？" oninput="saveWishWhy(${b.id},'whyGood',this.value);autoResize(this)">${esc(b.whyGood||'')}</textarea>
+        </div>
+        <div class="wish-why-field bad">
+          <label>ならないとやばい</label>
+          <textarea class="wish-why-input" placeholder="叶わないと何が起きる？" oninput="saveWishWhy(${b.id},'whyBad',this.value);autoResize(this)">${esc(b.whyBad||'')}</textarea>
+        </div>
+      </div>`:'';
+    el.innerHTML=`<div class="bucket-row"><button class="bucket-check" onclick="toggleBucket(${b.id})">${b.done?'✓':''}</button><span class="task-label bucket-label" onclick="editBucket(${b.id},this)" title="タップして編集">${esc(b.text)}${seriousMark}</span></div>${whyArea}<div class="bucket-actions"><button class="bucket-pull-btn" onclick="pullWishToToday(${b.id},this)" aria-label="今日の一歩に引き寄せる"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13"/><path d="M14 7l5 5-5 5"/></svg></button><button class="bucket-focus-btn${isSerious?' active':''}" onclick="toggleSeriousWish(${b.id})">${isSerious?'本気をやめる':'本気にする'}</button><button class="del-btn" onclick="delBucket(${b.id})">✕</button></div>`;
     list.appendChild(el);
   });
+  // 展開済みの why textarea を初期サイズに合わせる
+  list.querySelectorAll('.wish-why-input').forEach(autoResize);
 }
 function addBucket(){const inp=document.getElementById('bucketInput'),text=inp.value.trim();if(!text)return;const id=Date.now();G.bucket.unshift({id,text,done:false});if(!G.activeWishId)G.activeWishId=id;inp.value='';saveGlobal();renderBucket();renderGoalSummary();playAdd();}
 
@@ -2659,8 +2709,25 @@ function drawWishThread(fromEl){
     });
   }catch(e){}
 }
-function setActiveWish(id){G.activeWishId=id;G.activeGoalId=null;saveGlobal();renderBucket();renderGoals();renderGoalSummary();renderWeeklyReport();showToast('メインWishを設定しました ✓');}
-function delBucket(id){G.bucket=G.bucket.filter(b=>b.id!==id);if(String(G.activeWishId)===String(id)){G.activeWishId=G.bucket[0]?.id||null;G.activeGoalId=null;}saveGlobal();renderBucket();renderGoals();renderGoalSummary();playDelete();}
+/* 本気の願望トグル — 最大3つ。noteの「本気で叶えにいくのは3つまで」。 */
+function toggleSeriousWish(id){
+  const b=G.bucket.find(b=>b.id===id);if(!b)return;
+  if(b.serious){
+    b.serious=false;
+  } else {
+    const cnt=G.bucket.filter(x=>x.serious).length;
+    if(cnt>=3){showToast('本気の願望は3つまで');vib([8,40,8]);return;}
+    b.serious=true;
+    if(!G.activeWishId)G.activeWishId=b.id;
+    playStreak();
+  }
+  saveGlobal();renderBucket();renderGoals();renderGoalSummary();renderWeeklyReport();
+}
+/* なったら嬉しい / ならないとやばい を保存 */
+function saveWishWhy(id,field,val){const b=G.bucket.find(b=>b.id===id);if(b){b[field]=val;saveGlobal();}}
+/* 後方互換: 旧 setActiveWish 呼び出しを本気トグルへ */
+function setActiveWish(id){toggleSeriousWish(id);}
+function delBucket(id){G.bucket=G.bucket.filter(b=>b.id!==id);if(String(G.activeWishId)===String(id)){G.activeWishId=G.bucket.find(b=>b.serious)?.id||G.bucket[0]?.id||null;G.activeGoalId=null;}saveGlobal();renderBucket();renderGoals();renderGoalSummary();playDelete();}
 
 document.getElementById('todoInput').addEventListener('keydown',e=>{if(e.key==='Enter'){addTodo();}else if(e.key==='Escape'){e.target.value='';e.target.blur();}});
 document.getElementById('todoInput').addEventListener('blur',e=>{setTimeout(()=>{if(!e.target.value.trim())collapseAddRow();},150);});
