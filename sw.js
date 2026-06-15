@@ -1,4 +1,4 @@
-const CACHE = 'dl-20260616-footer-cta';
+const CACHE = 'dl-20260616-goal-2tier';
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.add('/')));

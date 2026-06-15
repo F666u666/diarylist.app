@@ -748,6 +748,27 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 [data-theme="dark"] .goal-item-wish{color:rgba(240,235,226,0.45);}
 .goal-item-wish::before{content:'↳ ';color:var(--accent);opacity:0.65;}
 [data-theme="dark"] .goal-item-text{color:hsl(168,30%,75%);}
+/* ── Goal 2層: 大目標カード + 小目標ネスト ── */
+.goal-big-tag{font-family:'Noto Sans JP',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.06em;color:#fff;background:hsl(168,30%,42%);padding:2px 7px;border-radius:999px;flex-shrink:0;white-space:nowrap;}
+.goal-edit-mini{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(26,20,16,0.32);background:rgba(255,255,255,0.5);border:1px solid rgba(26,20,16,0.08);flex-shrink:0;transition:all 0.2s;cursor:pointer;}
+.goal-edit-mini:hover{color:hsl(168,32%,40%);border-color:hsl(168,32%,48%);}
+[data-theme="dark"] .goal-edit-mini{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.12);color:rgba(240,235,226,0.4);}
+.goal-smalls{margin-top:8px;padding-top:8px;padding-left:14px;border-top:1px solid rgba(26,20,16,0.07);border-left:2px solid hsl(168,30%,82%);display:flex;flex-direction:column;gap:6px;}
+[data-theme="dark"] .goal-smalls{border-top-color:rgba(255,255,255,0.08);border-left-color:hsl(168,25%,38%);}
+.goal-small-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:9px;background:rgba(255,255,255,0.4);border:1px solid transparent;transition:all 0.2s;}
+[data-theme="dark"] .goal-small-item{background:rgba(255,255,255,0.04);}
+.goal-small-item.active{background:hsl(168,40%,95%);border-color:hsl(168,35%,78%);}
+[data-theme="dark"] .goal-small-item.active{background:hsl(168,25%,18%);border-color:hsl(168,25%,40%);}
+.goal-small-text{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:12.5px;font-weight:400;color:hsl(168,32%,30%);line-height:1.5;word-break:break-word;}
+[data-theme="dark"] .goal-small-text{color:hsl(168,28%,72%);}
+.goal-small-add-row{display:flex;align-items:center;gap:6px;margin-top:2px;}
+.goal-small-input{flex:1;min-width:0;font-family:'Noto Serif JP',serif;font-size:12px;font-weight:300;color:#1a1410;background:rgba(255,255,255,0.5);border:1px solid rgba(26,20,16,0.08);border-radius:9px;padding:7px 11px;outline:none;transition:border-color 0.2s;}
+.goal-small-input:focus{border-color:hsl(168,35%,48%);}
+[data-theme="dark"] .goal-small-input{background:rgba(255,255,255,0.06);color:#f0ebe2;border-color:rgba(255,255,255,0.12);}
+.goal-small-input::placeholder{color:rgba(26,20,16,0.28);}
+[data-theme="dark"] .goal-small-input::placeholder{color:rgba(240,235,226,0.28);}
+.goal-small-add-btn{width:30px;height:30px;border-radius:50%;background:hsl(168,32%,42%);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;transition:transform 0.18s;}
+.goal-small-add-btn:active{transform:scale(0.92);}
 .goal-item-del{width:22px;height:22px;display:flex;align-items:center;justify-content:center;border-radius:50%;color:rgba(26,20,16,0.25);transition:all 0.2s;flex-shrink:0;}
 [data-theme="dark"] .goal-item-del{color:rgba(240,235,226,0.22);}
 .goal-item-del:hover{background:rgba(220,80,60,0.12);color:rgba(220,80,60,0.7);}
@@ -789,6 +810,9 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
 .goal-summary-empty-text{flex:1;color:rgba(26,20,16,0.42);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 [data-theme="dark"] .goal-summary-empty-text{color:rgba(240,235,226,0.42);}
 .goal-summary-progress{font-family:'Geist Mono',monospace;font-size:10px;color:rgba(26,20,16,0.35);letter-spacing:-0.01em;flex-shrink:0;font-variant-numeric:tabular-nums;}
+.goal-summary-parent{font-family:'Noto Sans JP',sans-serif;font-size:10px;font-weight:300;color:rgba(26,20,16,0.34);padding-left:18px;margin-top:2px;letter-spacing:0.02em;}
+[data-theme="dark"] .goal-summary-parent{color:rgba(240,235,226,0.36);}
+.goal-summary-parent::before{content:'↳ 大目標 ';color:hsl(168,32%,45%);opacity:0.75;}
 [data-theme="dark"] .goal-summary-progress{color:rgba(240,235,226,0.40);}
 .goal-summary-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
 .goal-summary-label{font-family:'Noto Serif JP',serif;font-size:10px;font-weight:300;letter-spacing:0.18em;color:rgba(26,20,16,0.34);text-transform:uppercase;}
@@ -1021,7 +1045,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
       <div class="bucket-goal-hint" id="bucketGoalHint"></div>
     </div>
     <div class="add-row">
-      <input type="text" id="bucketInput" placeholder="5年後の自分が叶えていてほしいこと…"/>
+      <input type="text" id="bucketInput" placeholder="いつか叶えたい、なりたい自分…"/>
       <button class="add-btn" onclick="addBucket()">+</button>
     </div>
     <div class="bucket-serious-hint" id="bucketSeriousHint" style="display:none;"></div>
@@ -1209,7 +1233,7 @@ input:focus,textarea:focus{scroll-margin-top:80px;scroll-margin-bottom:80px;}
   <div class="ob-screen" id="ob-1">
     <div class="ob-step-label">STEP 1 / 4 · WISH</div>
     <div class="ob-step-title">叶えたいことを、ひとつ</div>
-    <div class="ob-step-sub">5年後のあなたが、こうなっていてほしい。<br>完璧じゃなくていい。</div>
+    <div class="ob-step-sub">いつか、こうなっていたい。<br>完璧じゃなくていい。</div>
     <input class="ob-input" id="obWishInput" placeholder="例：好きなことで生きている" maxlength="60" autocomplete="off">
     <button class="ob-next ready" onclick="obTourNext()">次へ</button>
   </div>
@@ -1505,14 +1529,21 @@ function getActiveWish(){
   return w||null;
 }
 function getActiveGoal(){
+  // Today に繋ぐのは「小目標」。大目標は中継地点で、直接今日とは繋がない。
   const goals=loadGoals();
-  if(!goals.length)return null;
-  const wish=getActiveWish();
-  let g=goals.find(x=>String(x.id)===String(G.activeGoalId));
-  if(g&&(!wish||!g.wishId||String(g.wishId)===String(wish.id)))return g;
-  g=wish?(goals.find(x=>String(x.wishId)===String(wish.id))||goals[0]):goals[0];
-  G.activeGoalId=g?.id||null;saveGlobal();
-  return g||null;
+  const smalls=goals.filter(g=>g.tier==='small');
+  if(!smalls.length)return null;
+  let g=smalls.find(x=>String(x.id)===String(G.activeGoalId));
+  if(g)return g;
+  g=smalls[0];
+  G.activeGoalId=g.id;saveGlobal();
+  return g;
+}
+function getActiveBigGoal(){
+  const small=getActiveGoal();
+  if(small&&small.parentId)return goalById(small.parentId);
+  const bigs=loadGoals().filter(g=>g.tier!=='small');
+  return bigs[0]||null;
 }
 function goalById(id){return loadGoals().find(g=>String(g.id)===String(id));}
 function wishById(id){return (G.bucket||[]).find(w=>String(w.id)===String(id));}
@@ -2568,7 +2599,7 @@ function renderBucket(){
   }
 
   if(!total){
-    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>5年後の自分を書いてみよう<span class="empty-msg-sub">そこから Goal と今日がつながる</span></p>`;
+    list.innerHTML=`<p class="empty-msg"><span class="empty-msg-deco">${SVG_EMPTY_WISH}</span>なりたい自分を、書いてみよう<span class="empty-msg-sub">そこから Goal と今日がつながる</span></p>`;
     return;
   }
 
@@ -2986,9 +3017,9 @@ function obFinish(){
   if(goalText){
     const goals=loadGoals();
     goalId=baseTs+1;
-    goals.push({id:goalId,text:goalText,wishId:wishId,done:false});
+    // オンボで聞くのは「半年〜1年の目標」= 大目標。小目標は後でGoalタブで足す。
+    goals.push({id:goalId,text:goalText,wishId:wishId,done:false,tier:'big',parentId:null});
     saveGoals(goals);
-    G.activeGoalId=goalId;
   }
   saveGlobal();
   if(todayText){
@@ -3070,6 +3101,9 @@ function loadGoals(){
     if(out.id===undefined||out.id===null){out.id=Date.now()+i;changed=true;}
     if(out.done===undefined){out.done=false;changed=true;}
     if(out.wishId===undefined){out.wishId=null;changed=true;}
+    // 2層化: 既存Goalは大目標(big)とみなす
+    if(out.tier===undefined){out.tier='big';changed=true;}
+    if(out.parentId===undefined){out.parentId=null;changed=true;}
     return out;
   });
   if(changed)localStorage.setItem(key,JSON.stringify(goals));
@@ -3093,15 +3127,16 @@ function goalProgress(goal){
 function renderGoalSummary(){
   const el=document.getElementById('goalSummary');
   if(!el)return;
-  const goal=getActiveGoal();
+  // 小目標があればそれ、なければ大目標を表示
+  const goal=getActiveGoal()||getActiveBigGoal();
   const progress=goalProgress(goal);
   if(isPast()){
     el.style.display='none';
     return;
   }
-  // Show only when an active Goal exists — don't push users to "set a Wish".
-  // Tabs are independently usable.
   if(goal){
+    const isSmall=goal.tier==='small';
+    const parent=isSmall&&goal.parentId?goalById(goal.parentId):null;
     el.style.display='block';
     el.className='goal-summary';
     el.innerHTML=`
@@ -3110,6 +3145,7 @@ function renderGoalSummary(){
         <span class="goal-summary-goal" onclick="switchTab('goal')">${esc(goal.text)}</span>
         ${progress.total?`<span class="goal-summary-progress">${progress.done}/${progress.total} · ${progress.rate}%</span>`:''}
       </div>
+      ${parent?`<div class="goal-summary-parent">${esc(parent.text)}</div>`:''}
     `;
   } else {
     el.style.display='none';
@@ -3138,23 +3174,38 @@ function renderGoals(){
   if(lel) lel.textContent=label;
   const list=document.getElementById('goalList');
   if(!list) return;
-  if(!goals.length){
+  const bigGoals=goals.filter(g=>g.tier!=='small');
+  if(!bigGoals.length){
     list.innerHTML='<div class="goal-empty">半年〜1年で届きそうな目標を決めよう<br>Wishまでの中継地点になります</div>';
     renderGoalSummary();
     return;
   }
-  list.innerHTML=goals.map((g,i)=>{
+  list.innerHTML=bigGoals.map((g,bi)=>{
     const wish=wishById(g.wishId);
-    return `<div class="goal-item">
+    const smalls=goals.filter(s=>s.tier==='small'&&String(s.parentId)===String(g.id));
+    const smallsHTML=smalls.map(s=>{
+      const isActive=String(G.activeGoalId)===String(s.id);
+      return `<div class="goal-small-item${isActive?' active':''}">
+        <span class="goal-small-text">${esc(s.text)}</span>
+        <button class="goal-main-btn${isActive?' active':''}" onclick="setActiveSmallGoal(${s.id})">${isActive?'Focus':'選ぶ'}</button>
+        <button class="goal-item-del" onclick="deleteGoalById(${s.id})" aria-label="削除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="12" height="12"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>`;
+    }).join('');
+    return `<div class="goal-item goal-big">
       <div class="goal-item-row">
-        <span class="goal-item-num">${i+1}</span>
+        <span class="goal-big-tag">大目標</span>
         <span class="goal-item-text">${esc(g.text)}</span>
-        <button class="goal-main-btn${String(G.activeGoalId)===String(g.id)?' active':''}" onclick="setMainGoal(${i})">${String(G.activeGoalId)===String(g.id)?'Main':'選ぶ'}</button>
-        <button class="goal-item-del" onclick="deleteGoal(${i})" aria-label="削除">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
+        <button class="goal-edit-mini" onclick="editBigGoal(${g.id})" aria-label="編集"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" width="12" height="12"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="goal-item-del" onclick="deleteGoalById(${g.id})" aria-label="削除"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="13" height="13"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       </div>
       ${wish?`<div class="goal-item-wish">${esc(wish.text)}</div>`:''}
+      <div class="goal-smalls">
+        ${smallsHTML}
+        <div class="goal-small-add-row">
+          <input class="goal-small-input" id="smallInput-${g.id}" placeholder="1〜3ヶ月でやること…" maxlength="60" onkeydown="if(event.key==='Enter')addSmallGoal(${g.id})">
+          <button class="goal-small-add-btn" onclick="addSmallGoal(${g.id})" aria-label="小目標を追加"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" width="13" height="13"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        </div>
+      </div>
     </div>`;
   }).join('');
   renderGoalSummary();
@@ -3165,30 +3216,56 @@ function addGoal(){
   if(!text) return;
   const goals=loadGoals();
   const wish=getActiveWish();
-  const goal={id:Date.now(),text,wishId:wish?.id||null,done:false};
+  const goal={id:Date.now(),text,wishId:wish?.id||null,done:false,tier:'big',parentId:null};
   goals.push(goal);
-  G.activeGoalId=goal.id;saveGlobal();
   saveGoals(goals);
   inp.value='';
   renderGoals();
   renderGoalSummary();
 }
-function setMainGoal(idx){
+function addSmallGoal(parentId){
+  const inp=document.getElementById('smallInput-'+parentId);
+  const text=(inp?.value||'').trim();
+  if(!text)return;
   const goals=loadGoals();
-  const goal=goals[idx];
-  if(!goal)return;
-  G.activeGoalId=goal.id;
-  if(goal.wishId)G.activeWishId=goal.wishId;
-  saveGlobal();renderGoals();renderGoalSummary();renderWeeklyReport();showToast('メインGoalを設定しました ✓');
+  const parent=goals.find(g=>String(g.id)===String(parentId));
+  const sid=Date.now();
+  goals.push({id:sid,text,wishId:parent?.wishId||null,done:false,tier:'small',parentId});
+  // 最初の小目標は自動でフォーカス
+  if(!G.activeGoalId)G.activeGoalId=sid;
+  saveGoals(goals);saveGlobal();
+  renderGoals();renderGoalSummary();playAdd();
 }
-function deleteGoal(idx){
+function setActiveSmallGoal(id){
   const goals=loadGoals();
-  const removed=goals.splice(idx,1)[0];
-  if(removed&&String(G.activeGoalId)===String(removed.id)){G.activeGoalId=goals[0]?.id||null;saveGlobal();}
+  const s=goals.find(g=>String(g.id)===String(id));
+  if(!s)return;
+  G.activeGoalId=s.id;
+  if(s.wishId)G.activeWishId=s.wishId;
+  saveGlobal();renderGoals();renderGoalSummary();renderWeeklyReport();showToast('今フォーカスする目標にしました ✓');
+}
+function deleteGoalById(id){
+  let goals=loadGoals();
+  // 大目標を消したら、ぶら下がる小目標も消す
+  const removingIds=new Set([String(id)]);
+  goals.filter(g=>String(g.parentId)===String(id)).forEach(g=>removingIds.add(String(g.id)));
+  goals=goals.filter(g=>!removingIds.has(String(g.id)));
+  if(removingIds.has(String(G.activeGoalId))){G.activeGoalId=goals.find(g=>g.tier==='small')?.id||null;saveGlobal();}
   saveGoals(goals);
-  renderGoals();
-  renderGoalSummary();
+  renderGoals();renderGoalSummary();playDelete();
 }
+function editBigGoal(id){
+  const goals=loadGoals();
+  const g=goals.find(x=>String(x.id)===String(id));
+  if(!g)return;
+  const next=prompt('大目標を編集',g.text);
+  if(next===null)return;
+  const t=next.trim();
+  if(t){g.text=t;saveGoals(goals);renderGoals();renderGoalSummary();}
+}
+// 後方互換
+function setMainGoal(idx){const goals=loadGoals();const g=goals[idx];if(g)setActiveSmallGoal(g.id);}
+function deleteGoal(idx){const goals=loadGoals();const g=goals[idx];if(g)deleteGoalById(g.id);}
 
 function toggleAddSheet(){
   const sheet = document.getElementById('addSheet');
